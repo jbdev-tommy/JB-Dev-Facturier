@@ -18,7 +18,27 @@
 	<h:form id="devisWizard" enctype="application/pdf">.
 
 		<p:growl id="message" showDetail="true" />
-
+		<c:if test="#{empty clientsListBean.list}">
+					<div class="TexAlCenter Container100 Responsive100 ">
+						<div class="Container100 Responsive100">
+							<div class="ContainerIndent">
+								<div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
+									<div class="Container100"
+										style="margin: 0px 10px 10px -10px; padding: 0px 10px;">
+										<div class="SoftRedBack DispInlBlock Fleft"
+											style="margin: -10px 10px -20px -10px; padding: 20px 10px;">
+											<i class="fa fa-warning Red Fs100"></i>
+										</div>
+										<span class="Red FontRobotoLight BigTopic">Pas de client trouvé</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+				</c:if>
+				<c:if test="#{not empty clientsListBean.list}">
+		
 		<h3> Numéro du devis</h3>
 		<div class="EmptyBox10"></div>
 		<p:inputText styleClass="Wid50" placeholder="Numéro du devis"
@@ -150,6 +170,6 @@
 			style="margin-top : 5px;"
 			styleClass="GreenButton Wid100 Fs18 White RaisedButton"
 			update="@(.ui-datatable)" />
-
+</c:if>
 	</h:form>
 </ui:composition>

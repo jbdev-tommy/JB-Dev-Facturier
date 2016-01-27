@@ -4,13 +4,17 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
                 
-    						  <p:panelGrid  id="categoriePanel" layout="grid" columns="1" styleClass="Wid90">
-	    						     <p:column>
-	                                    <h2>Categories </h2>
-	                              		 <p:inputText styleClass="Wid90" placeholder="Nom" value="#{categoriesBean.cat.nom}" /><br />
-	                              	 </p:column>
-							 </p:panelGrid>
-                             <p:commandButton process="@form" value="Enregistrer" action="#{categoriesBean.create}" icon="fa fa-key" style="margin-top : 5px;" styleClass="GreenButton Wid100 Fs18 White RaisedButton" update="@(.ui-datatable) @(:input)" />       	 	   	
-                             <p:commandButton process="@form" value="Nouvelle categorie" action="#{categoriesBean.init}" icon="fa fa-key" style="margin-top : 5px;" styleClass="GreenButton Wid100 Fs18 White RaisedButton" update="@(.ui-datatable) @(:input)" />       	 	   	
-  
+                 
+  	<p:panelGrid id="CategoirePanel" columns="1" layout="grid"
+		style="border:0px !important; background:none;"
+		styleClass="FormContent">
+		<p:column>
+			 <p:inputText styleClass="Wid90" placeholder="Nom de catégorie" 
+			    value="#{categoriesBean.cat.nom}"  required="true"
+				requiredMessage="Une catégorie par défaut est nécéssaire au bon fonctionnement du systeme" />
+			
+		</p:column>
+	</p:panelGrid>
+    <p:commandButton process="@form" value="Enregistrer" action="#{categoriesBean.create}" icon="fa fa-key" style="margin-top : 5px;" styleClass="GreenButton Wid100 Fs18 White RaisedButton" update="@(.ui-datatable) @(:input)" />       	 	   	
+                        
 </ui:composition>

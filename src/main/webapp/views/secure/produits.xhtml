@@ -11,24 +11,68 @@
 	<ui:define name="content">
 		<div class="Container40 Responsive100">
 			<div class="ContainerIndent">
-				<div class="Container100 Responsive100">
+
+				<c:if
+					test="#{not empty fournisseursListBean.list or action eq 'user'}">
 					<div class="Container100 Responsive100">
-						<div class="ContainerIndent">
-							<div class="Card ShadowEffect  ">
-								<div class="Container100 Responsive100">
-									<div class="ContainerIndent">
-										<h2 class="BigTopic">Ajouter un produit ou un service</h2>
-										<ui:include src="/views/forms/produitsForms.xhtml">
-											<ui:param name="update"
-												value="@(.ui-datatable), @(:input), message, @widgetVar(graphs)"></ui:param>
-										</ui:include>
+						<div class="Container100 Responsive100">
+							<div class="ContainerIndent">
+								<div class="Card ShadowEffect  ">
+									<div class="Container100 Responsive100">
+										<div class="ContainerIndent">
+											<ui:include src="/views/forms/produitsForms.xhtml">
+												<ui:param name="update"
+													value="@(.ui-datatable), @(:input), message, @widgetVar(graphs)"></ui:param>
+											</ui:include>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</c:if>
 
+				<c:if test="#{empty fournisseursListBean.list and action != 'user'}">
+					<div class="TexAlCenter Container100 Responsive100 ">
+						<div class="Container100 Responsive100">
+							<div class="ContainerIndent">
+								<div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
+									<div class="Container100"
+										style="margin: 0px 10px 10px -10px; padding: 0px 10px;">
+										<div class="SoftRedBack DispInlBlock Fleft"
+											style="margin: -10px 10px -20px -10px; padding: 20px 10px;">
+											<i class="fa fa-warning Red Fs100"></i>
+										</div>
+										<span class="Red FontRobotoLight BigTopic">Pas de fournisseur trouvé</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="Container100 Responsive100">
+						<div class="Container100 Responsive100">
+							<div class="ContainerIndent">
+								<div class="Card ShadowEffect  ">
+									<div class="Container100 Responsive100">
+										<div class="ContainerIndent">
+
+											<h:form>
+												<ui:include src="/views/forms/fournisseursForms.xhtml">
+													<ui:param name="update" value="@(.ui-datatable), @(:input)" />
+												</ui:include>
+												<p:commandButton process="@form" value="Enregistrer"
+													action="#{fournisseursBean.create}" icon="fa fa-key"
+													style="margin-top : 5px;"
+													styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+													update="@(.ui-datatable), @(:input)" />
+											</h:form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:if>
 
 				<ui:fragment rendered="#{action eq 'user'}">
 					<div class="Container100 Responsive100">
@@ -50,7 +94,7 @@
 				</ui:fragment>
 			</div>
 		</div>
-		
+
 		<div class="Container60 Responsive100">
 			<div class="ContainerIndent">
 				<h:form id="dataProduits">
@@ -99,7 +143,7 @@
 				</h:form>
 			</div>
 		</div>
-		
+
 	</ui:define>
 
 </ui:composition>

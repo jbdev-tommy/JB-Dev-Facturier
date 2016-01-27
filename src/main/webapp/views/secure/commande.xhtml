@@ -2,20 +2,40 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	template="/WEB-INF/template.xhtml" xmlns:p="http://primefaces.org/ui">
-  
-  
+	template="/WEB-INF/template.xhtml" xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+
 	<ui:define name="content">
 
-		<div class="Container50 Responsive100">
+				<c:if test="#{empty fournisseursListBean.list}">
+					<div class="TexAlCenter Container100 Responsive100 ">
+						<div class="Container100 Responsive100">
+							<div class="ContainerIndent">
+								<div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
+									<div class="Container100"
+										style="margin: 0px 10px 10px -10px; padding: 0px 10px;">
+										<div class="SoftRedBack DispInlBlock Fleft"
+											style="margin: -10px 10px -20px -10px; padding: 20px 10px;">
+											<i class="fa fa-warning Red Fs100"></i>
+										</div>
+										<span class="Red FontRobotoLight BigTopic">Pas de fournisseur trouvé</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+				</c:if>
+				
+	<div class="Container50 Responsive100">
 			<div class="ContainerIndent">
 				<div class="Card ShadowEffect  ">
 					<div class="Container100 Responsive100">
 						<div class="ContainerIndent">
 							<h2 class="BigTopic">Passer commande</h2>
-
-								<ui:include src="/views/forms/commandeForms.xhtml" />
-
+							<ui:include src="/views/forms/commandeForms.xhtml" />
 						</div>
 					</div>
 				</div>

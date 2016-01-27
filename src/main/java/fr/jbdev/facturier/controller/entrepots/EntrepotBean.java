@@ -3,6 +3,7 @@ package fr.jbdev.facturier.controller.entrepots;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 import org.primefaces.event.DragDropEvent;
@@ -32,12 +33,20 @@ public class EntrepotBean implements GeneralBean<Entrepots> {
     private CommandesBean commandesBean;
 
     private Entrepots entrepot;
-
+    private boolean view;
+    
     @PostConstruct
     public void init() {
+	view = false;
+	
+	//Créer un entrepot à la premir connexion
+	if(!entrepotListBean.getList().isEmpty())
+	    view = true;
+	
 	setEntrepot(new Entrepots());
     }
 
+  
     @Override
     public void create() {
 
@@ -140,6 +149,13 @@ public class EntrepotBean implements GeneralBean<Entrepots> {
 
     public void setCommandesBean(CommandesBean commandesBean) {
 	this.commandesBean = commandesBean;
+    }
+    public boolean isView() {
+        return view;
+    }
+
+    public void setView(boolean view) {
+        this.view = view;
     }
 
 }

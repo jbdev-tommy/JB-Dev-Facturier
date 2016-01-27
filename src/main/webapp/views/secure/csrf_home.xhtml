@@ -8,7 +8,8 @@
 
 	<ui:define name="content">
 
-		<c:if test="#{exerciceBean.view}">
+		<c:if
+			test="#{!exerciceBean.view and !categoriesBean.view and !entrepotsBean.view}">
 			<div class="TexAlCenter Container100 Responsive100 ">
 				<div class="Container100 Responsive100">
 					<div class="ContainerIndent">
@@ -19,8 +20,65 @@
 									style="margin: -10px 10px -20px -10px; padding: 20px 10px;">
 									<i class="fa fa-warning Red Fs100"></i>
 								</div>
-								<span class="Red FontRobotoLight Fs20">Créé un exercice
-									comptable avant de commencer !!!</span><br />
+								<span class="Red FontRobotoLight BigTopic">Avant de
+									commencer !</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="TexAlCenter Container100 Responsive100 ">
+				<div class="Container100 Responsive100">
+					<div class="ContainerIndent">
+						<div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
+
+							<div class="Container50 Responsive100">
+								<div class="ContainerIndent">
+									<h2>I - Ajouter un entrepot par défaut</h2>
+									<h:form id="addEntrepot">
+										<p:panelGrid id="EntrepotPanel" columns="1" layout="grid"
+											style="border:0px !important; background:none;"
+											styleClass="FormContent">
+											<p:column>
+												<p:inputText styleClass="Wid90" placeholder="Numero"
+													value="#{entrepotsBean.entrepot.numero}" required="true"
+													requiredMessage="Un numéro est nécéssaire" />
+												<p:inputText styleClass="Wid90" placeholder="Nom"
+													value="#{entrepotsBean.entrepot.nom}" required="true"
+													requiredMessage="Un nom est nécéssaire" />
+											</p:column>
+										</p:panelGrid>
+										<p:commandButton process="@form" value="Enregistrer"
+											action="#{entrepotsBean.create}" icon="fa fa-key"
+											style="margin-top : 5px;"
+											styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+											update="@(.ui-datatable) :@form" />
+									</h:form>
+								</div>
+							</div>
+
+
+							<div class="Container50 Reponsive100">
+								<div class="ContainerIndent">
+									<h:form>
+										<h2>II - Ajouter une categorie générale de produits</h2>
+										<ui:include src="/views/forms/categoriesForms.xhtml" />
+									</h:form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="TexAlCenter Container100 Responsive100 ">
+				<div class="Container100 Responsive100">
+					<div class="ContainerIndent">
+						<div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
+							<div class="Container100"
+								style="margin: 0px 10px 10px -10px; padding: 0px 10px;">
+
 								<h:form>
 									<p:growl id="message" showDetail="true"></p:growl>
 									<p:commandButton process="@form" value=" Commençer "
@@ -34,8 +92,12 @@
 					</div>
 				</div>
 			</div>
+
+
 		</c:if>
-		<c:if test="#{!exerciceBean.view}">
+
+		<c:if
+			test="#{exerciceBean.view or categoriesBean.view or entrepotsBean.view}">
 
 			<div class="Container60 Responsive100">
 				<div class="Container100 Responsive100">
@@ -122,7 +184,7 @@
 								</c:choose>
 							</div>
 						</div>
-						<div class="ContainerIndent">
+						<div class="ContainerIndent ">
 							<div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
 								<div class="Container100"
 									style="margin: 0px 10px 10px -10px; padding: 0px 10px;">
@@ -193,35 +255,35 @@
 					</div>
 				</div>
 			</div>
-<div class="Container50 Responsive100">
-            <div class="ContainerIndent">
-                <div class="Card ShadowEffect  ">
-  				    <div class="Container100 Responsive100">
-                        <div class="ContainerIndent">   
-                        	<c:choose>
-                        		<c:when test="#{caBean.view}">
-   									<ui:include src="/views/graphs/rapportsCa.xhtml"></ui:include>
-   								</c:when>
-   								<c:otherwise>
+			<div class="Container50 Responsive100">
+				<div class="ContainerIndent">
+					<div class="Card ShadowEffect  ">
+						<div class="Container100 Responsive100">
+							<div class="ContainerIndent">
+								<c:choose>
+									<c:when test="#{caBean.view}">
+										<ui:include src="/views/graphs/rapportsCa.xhtml"></ui:include>
+									</c:when>
+									<c:otherwise>
    									Il n'y a pas de valeur à afficher
    								</c:otherwise>
-   							</c:choose>
-   						 </div> 
-   					</div>
-   				</div>
-   			</div>
-   		</div>
-   		<div class="Container50 Responsive100">
-            <div class="ContainerIndent">
-                <div class="Card ShadowEffect  ">
-  				    <div class="Container100 Responsive100">
-                        <div class="ContainerIndent">   
-   							<ui:include src="/views/graphs/lineChartDepense.xhtml"></ui:include>
-   						 </div> 
-   					</div>
-   				</div>
-   			</div>
-   		</div>
+								</c:choose>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="Container50 Responsive100">
+				<div class="ContainerIndent">
+					<div class="Card ShadowEffect  ">
+						<div class="Container100 Responsive100">
+							<div class="ContainerIndent">
+								<ui:include src="/views/graphs/lineChartDepense.xhtml"></ui:include>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</c:if>
 	</ui:define>
 

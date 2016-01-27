@@ -3,6 +3,7 @@ package fr.jbdev.facturier.controller.categorie;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 import org.primefaces.context.RequestContext;
@@ -27,12 +28,21 @@ public class CategorieBean implements GeneralBean<Categories> {
 
     private Categories cat;
     private boolean confirme;
-
+    private boolean view;
+    
     @PostConstruct
     public void init() {
+	view = false;
+	
+	//Créer une categorie a la premiérer connection
+	if(!categorieListBean.getList().isEmpty())
+	    view =true;
+	
 	this.cat = new Categories();
 	this.confirme = false;
     }
+
+   
 
     @Override
     public void delete() {
@@ -145,5 +155,11 @@ public class CategorieBean implements GeneralBean<Categories> {
     public void setCat(Categories cat) {
 	this.cat = cat;
     }
+    public boolean isView() {
+        return view;
+    }
 
+    public void setView(boolean view) {
+        this.view = view;
+    }
 }

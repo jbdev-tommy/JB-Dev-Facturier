@@ -14,8 +14,8 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/facturierDeux" />
-		<property name="username" value="root" />
+		<property name="url" value="jdbc:mysql://db.jbdev.fr:3306/facturierDeux" />
+		<property name="username" value="tommy" />
 		<property name="password" value="Bonjour777" />
 	</bean>
 
