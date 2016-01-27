@@ -1,8 +1,11 @@
 package fr.jbdev.facturier.controller.todo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -16,6 +19,7 @@ import fr.jbdev.domaine.Todo;
 import fr.jbdev.facturier.controller.GeneralBean;
 import fr.jbdev.facturier.controller.MyHttpSession;
 import fr.jbdev.facturier.excepetions.ObjectNullException;
+import fr.jbdev.facturier.utils.DateUtilitaire;
 
 @ViewScoped
 @ManagedBean(name = "todoBean", eager = false)
@@ -38,7 +42,20 @@ public class TodoBean implements GeneralBean<Todo>, Serializable {
 	listDay = new HashSet<Todo>();
 	trieTodo();
     }
-
+    
+    public List<Todo> createCurrentTodoList() {
+  	List<Todo> list = new LinkedList<Todo>(todoListBean.getList());
+  	List<Todo> current =new ArrayList<Todo>();
+  	
+  	for (final Todo todo : list) {
+  	    if ((todo.getDateFinTodo().compareTo(new Date()) == 0)
+  		    && !todo.isDo_()) {
+  		current.add(todo);
+  	    }
+  	}
+  	return current;
+      }
+    
     private void trieTodo() {
 	for (Todo todo : todoListBean.getList()) {
 	    if (todo.getDateFinTodo().equals(new Date())) {
@@ -72,18 +89,17 @@ public class TodoBean implements GeneralBean<Todo>, Serializable {
     @Override
     public void update() {
 	try {
+	    todo.setDo_(true);
+	    
+	    //persistance
 	    todoListBean.getTodoService().update(todo);
+	    
 	    // Vue
 	    if (todoListBean.getList().contains(todo)) {
-		for (Todo todo : todoListBean.getList()) {
-		    if (todo.equals(this.todo)) {
-			todoListBean.getList().remove(todo);
-			todoListBean.getList().add(todo);
-			break;
-		    }
-		}
-	    }
-
+		todoListBean.getList().remove(todo);
+		todoListBean.getList().add(todo);
+	}
+	
 	} catch (ObjectNullException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
