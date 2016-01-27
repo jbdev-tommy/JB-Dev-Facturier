@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:sec="http://www.springframework.org/security/tags">
+
+		 <p:dialog id="dialogInfo" header="Info Client" widgetVar="clientDialog" showEffect="slide" hideEffect="explode" resizable="false">
+                   <ui:include src="/views/forms/clientsForms.xhtml">
+   						<ui:param name="update" value="@(.ui-datatable), message, @(:input)"/>
+   					</ui:include>
+                    <p:commandButton process="@form" value="Mettre a jour" action="#{clientsBean.update}" styleClass="GreenButton Wid100 Fs18 White RaisedButton" update="@(.ui-datatable)" />
+        			<div class="EmptyBox10"></div>  
+                    <p:commandButton process="@form" value="Suprimmer" action="#{clientsBean.delete}" styleClass="RedButton Wid100 Fs18 White RaisedButton" update="@(.ui-datatable)" />
+		</p:dialog>        
+
+</ui:composition>

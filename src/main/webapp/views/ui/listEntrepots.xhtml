@@ -1,0 +1,16 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui">
+    
+     <p:selectOneListbox id="listEntrepots" cahe="true" value="#{entrepotsBean.entrepot}" converter="entrepotsConverter" var="entrepot" filter="true" filterMatchMode="contains" row="6" style="width:90%;" >
+            <f:selectItems value="#{entrepotsListBean.list}" var="ent" itemLabel="#{ent.numero}" itemValue="#{ent}" />
+            <p:column>
+                <h:outputText value = "#{entrepot.numero}"/>
+            </p:column>
+			<p:ajax  event="click" listener="#{produitsBean.listenerEntrepot}" update="@(.ui-datatable) @(.ui-datagrid) dropArea"></p:ajax>
+ 	</p:selectOneListbox>
+
+</ui:composition>

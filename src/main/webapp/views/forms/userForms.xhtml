@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+  
+    						<p:growl id="message" showDetail="true" />
+    						    <p:panelGrid id="userDetailForm" columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
+                                 <p:column>
+                                       <h2>Identifiants</h2>
+                                      <div class="EmptyBox20"></div>
+                                      
+                                 	 <p:inputText styleClass="Wid90" placeholder="Email" value="#{userDetail.user.email}"/>
+      								 <p:password id="pwd1" value="#{userDetail.user.passWord}" placeholder="Mot de passe" match="pwd2" required="true" feedback="true" styleClass="Wid90" promptLabel="Entrer un mot de passe" goodLabel="bon" strongLabel="fort"	/>
+       								 <p:password id="pwd2" value="#{userDetail.user.passWord}" placeholder="Mot de passe"  required="true" styleClass="Wid90" />
+       								
+                                  	 <div class="EmptyBox20"></div>
+                                    <h2>Coordonnées Entreprise</h2>
+                                      <div class="EmptyBox20"></div>
+                               		  <p:inputText styleClass="Wid90" placeholder="Nom" value="#{userDetail.entreprise.nom}" required="true"/>
+                  			   		  <p:inputText styleClass="Wid90" placeholder="Téléphone" value="#{userDetail.entreprise.telephone}" required="true"/>
+                                   	  <p:inputText styleClass="Wid90" placeholder="Site web" value="#{userDetail.entreprise.solgan}"/>                          
+									  <p:inputText styleClass="Wid90" placeholder="Identifiant TVA (FR ... )" value="#{userDetail.entreprise.identifiantTva}" />   
+									  <p:inputText styleClass="Wid90" placeholder="Numéro SIRET" value="#{userDetail.entreprise.numSiret}" required="true"/>  
+									  <p:inputText styleClass="Wid90" placeholder="Code APE" value="#{userDetail.entreprise.codeApe}" />  
+									  <p:inputText styleClass="Wid90" placeholder="Date de création" value="#{userDetail.entreprise.dateDeCreation}" />    
+								
+								   <h2>Adresse</h2>
+                                 	  <div class="EmptyBox20"></div>
+					             	  <ui:include src="/views/ui/autocomplete.xhtml"></ui:include>
+                                 </p:column>
+                                 
+                              	 <p:column>
+                              		<h2>Coordonnées utilisateur</h2>
+                              		<p:inputText styleClass="Wid90" placeholder="Nom" value="#{userDetail.personne.nom}" required="true"/>
+                  				   	<p:inputText styleClass="Wid90" placeholder="Prénom" value="#{userDetail.personne.prenom}" required="true"/>
+                  				   
+                  			   		<p:selectBooleanCheckbox value="#{userDetail.user.responsable}" itemLabel="Gérant" style="margin-top : 20px; margin-left : 100px;" required="true"/>
+           			
+                    			</p:column>
+                    			
+                    	 </p:panelGrid>
+                    	 
+                           <div class="Container100 Responsive100">
+                      		 <div class="ContainerIndent">
+                      		 
+                      		  <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none; width:100%;" styleClass="FormContent">
+                             	<p:column>
+                             	<p:row>
+                             		<h2>Changer de logo</h2>
+                             		  <div class="EmptyBox20"></div>
+                                	
+                             		<ui:include src="/views/forms/fileuploadForm.xhtml">
+                             			<ui:param name="update" value="img, message"/>
+                             		</ui:include>
+                            	</p:row>
+                            	</p:column>
+                            	<p:column>
+                            		<h2>Logo actuel</h2>
+                            		  <div class="EmptyBox20"></div>
+                                		<p:outputPanel id="img">                        	
+                            					<p:graphicImage cache="false" style="width : 300px; height : auto;" value="#{imgBean.image}"></p:graphicImage>
+                            			</p:outputPanel>
+                         		</p:column>
+                         		
+                          	 </p:panelGrid>
+                       
+       						</div>
+       					   </div>
+                         
+</ui:composition>

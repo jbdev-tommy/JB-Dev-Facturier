@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pr="http://primefaces.org/rio"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="multipart/form-data stream;  charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>JB-Dev Facturier</title>
+        
+        <h:outputScript name="js/ripple-effect.js" library="rio-layout" />
+        <h:outputScript name="js/perfect-scrollbar.js" library="rio-layout" />
+        <h:outputScript name="js/layout.js" library="rio-layout" />
+
+        <ui:insert name="head" />
+    </h:head>
+
+    <h:body styleClass="loginbodyblue">
+   	   <div class="Animated05" id="layout-menu-cover">
+   	 	<ul class="layout-menu">
+            <li>
+                <a class="menulink ripplelink">
+                    <i class="icon-round58 Fs40"></i>
+                    <span class="Fs18">Bonjour<i class="icon-downwards Fright Fs20"></i><br /><span class="Fs12 FontRobotoLight">Bienvenu</span></span>
+                </a>
+                </li>
+                </ul>
+        <pr:menu>
+            <p:menuitem id="rm_mentions" value="Mentions Légales" icon="icon-planet29" outcome="/login"/>
+            <p:menuitem id="rm_docs" value="Documentations" icon="icon-receipt9" outcome="/login"/>
+           <p:menuitem id="rm_bref" value="En bref ..." icon="icon-sun" outcome="/login"/>   
+       </pr:menu>
+  		 </div>
+       
+        <ui:include src="/WEB-INF/topbar.xhtml" />
+  
+        <div id="wrapper">
+            <div id="wrapperIndent">
+
+                <div id="layout-portlets-cover">
+                    
+                    
+                   <h:form id="createUser" enctype="multipart/form-data">
+                  		 
+                  	     <div class="Container100">
+                  	      <div class="ContainerIndent">
+                    		<div class="Container100 Responsive50">
+                       		 <div class="ContainerIndent">
+                                <h:graphicImage name="images/logo.svg" library="rio-layout" style="margin-top:20px; width:20%; max-width:800px;"/><BR />
+                          	</div>
+                    	</div>
+                    	
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect  ">
+                    <div class="Container100 Responsive100">
+                        <div class="ContainerIndent">
+                            <h2 class="BigTopic">Inscription</h2>
+                       			  <p:growl id="message"  showDetail="true"  ></p:growl>
+    						    <p:panelGrid id="signInBeanForm" columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
+                                 <p:column>
+                                       <h2>Identifiants</h2>
+                                      <div class="EmptyBox20"></div>
+                                      
+                                 	 <p:inputText styleClass="Wid90" placeholder="Email" value="#{signInBean.user.email}"/>
+      								 <p:password id="pwd1" value="#{signInBean.user.passWord}" placeholder="Mot de passe" match="pwd2" required="true" feedback="true" styleClass="Wid90" weakLabel="faible" promptLabel="Entrer un mot de passe" goodLabel="bon" strongLabel="fort"/>
+       								 <p:password id="pwd2" value="#{signInBean.user.passWord}" placeholder="Mot de passe"  required="true" styleClass="Wid90" />
+       								<div class="EmptyBox20"></div>
+       								<h3>Coordonnées utilisateur</h3>
+       								<div class="EmptyBox10"></div>
+                              		<p:inputText styleClass="Wid90" placeholder="Nom" value="#{signInBean.personne.nom}" required="true"/>
+                  				   	<p:inputText styleClass="Wid90" placeholder="Prénom" value="#{signInBean.personne.prenom}" required="true"/>
+                  				   <div class="EmptyBox10"></div>
+                  			   
+                  			   		<p:selectOneRadio id="customRadio" value="#{signInBean.user.responsable}" >
+										<f:selectItem itemLabel="Responsable" itemValue="true" />
+										<f:selectItem itemLabel="Employé" itemValue="false" />
+									</p:selectOneRadio>
+									
+           						     <div class="EmptyBox20"></div>
+           						 <p:row>
+                             		<h2>Logo</h2>
+                             		  <div class="EmptyBox20"></div>
+                                	
+                             		<ui:include src="/views/forms/fileuploadForm.xhtml">
+                             			<ui:param name="update" value="img, message"/>
+                             		</ui:include>
+                            	
+                            	      <h2>Logo actuel</h2>
+                            		  <div class="EmptyBox20"></div>
+                                		<p:outputPanel id="img"  >                        	
+                            					<p:graphicImage cache="false" style="width : 200px; height : auto;" value="#{imgBean.image}"></p:graphicImage>
+                            			</p:outputPanel>
+                            		</p:row>
+           						  </p:column>
+           						    <p:column>
+           							<div class="EmptyBox20"></div>
+                                    <h2>Coordonnées Entreprise</h2>
+                                      <div class="EmptyBox20"></div>
+                               		  <p:inputText styleClass="Wid90" placeholder="Nom" value="#{signInBean.entreprise.nom}" required="true"/>
+                  			   		  <p:inputText styleClass="Wid90" placeholder="Téléphone" value="#{signInBean.entreprise.telephone}" required="true"/>
+                                   	  <p:inputText styleClass="Wid90" placeholder="Site web" value="#{signInBean.entreprise.solgan}"/>                          
+									  <p:inputText styleClass="Wid90" placeholder="Identifiant TVA (FR ... )" value="#{signInBean.entreprise.identifiantTva}" />   
+									  <p:inputText styleClass="Wid90" placeholder="Numéro SIRET" value="#{signInBean.entreprise.numSiret}" required="true"/>  
+									  <p:inputText styleClass="Wid90" placeholder="Code APE" value="#{signInBean.entreprise.codeApe}" />  
+									  <p:calendar  id="calendare"  pattern="dd/MM/yyyy" mask="true" placeholder="Date de création" value="#{signInBean.entreprise.dateDeCreation}" effect="fold" /> 
+                                 	  
+                                 	  <div class="EmptyBox20"></div>
+					             	  <ui:include src="/views/ui/autocomplete.xhtml"></ui:include>
+					             	  
+                                 	  <div class="EmptyBox20"></div>
+					             	   <ui:include src="/views/ui/listRegimeFiscaux.xhtml"/>
+                         		</p:column>
+
+                    	 </p:panelGrid>
+                    	 
+                    </div>
+   			</div>
+			</div>
+     		</div>
+     		</div>
+     		
+          </div>  
+                    <div class="Container100">
+                        <div class="ContainerIndent Fs12 BoldGray FontRobotoRegular">
+                          	 <p:selectBooleanCheckbox value="#{signInBean.accept}" itemLabel="J'accepte les termes et les conditions générales d'utilisation" style="margin-top : 20px; margin-left : 100px;" required="true"><BR />
+                              </p:selectBooleanCheckbox> 
+           				
+                 			   <p:commandButton  value="Valider l'inscription" action="#{signInBean.create}" icon="fa fa-key" style=" margin-left : 100px;" styleClass="GreenButton Wid60 Fs18 White RaisedButton" validateClient="true" ajax="true"/>
+           				
+           						<p:messages id="messages" autoUpdate="true" closable="true" />
+                        </div>
+                    </div>
+          
+                </h:form>       
+                      </div>  
+                <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+                    <f:facet name="start">
+                        <p:graphicImage name="images/preloader.gif" library="rio-layout"/>
+                    </f:facet>
+
+                    <f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
+                </p:ajaxStatus>
+            </div>
+        </div>
+
+        <h:outputStylesheet name="css/core-layout.css" library="rio-layout" />
+        <h:outputStylesheet name="css/animate.css" library="rio-layout" />
+        <h:outputStylesheet name="css/rio-font.css" library="rio-layout" />
+        <h:outputStylesheet name="css/ripple-effect.css" library="rio-layout" />
+        <h:outputStylesheet name="css/perfect-scrollbar.css" library="rio-layout" />
+        <h:outputStylesheet name="css/font-awesome.css" library="rio-layout" />
+        <h:outputStylesheet name="css/rio-layout.css" library="rio-layout" />
+    </h:body>
+
+</html>

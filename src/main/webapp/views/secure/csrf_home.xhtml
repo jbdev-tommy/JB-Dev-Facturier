@@ -1,0 +1,228 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<ui:define name="content">
+
+		<c:if test="#{exerciceBean.view}">
+			<div class="TexAlCenter Container100 Responsive100 ">
+				<div class="Container100 Responsive100">
+					<div class="ContainerIndent">
+						<div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
+							<div class="Container100"
+								style="margin: 0px 10px 10px -10px; padding: 0px 10px;">
+								<div class="SoftRedBack DispInlBlock Fleft"
+									style="margin: -10px 10px -20px -10px; padding: 20px 10px;">
+									<i class="fa fa-warning Red Fs100"></i>
+								</div>
+								<span class="Red FontRobotoLight Fs20">Créé un exercice
+									comptable avant de commencer !!!</span><br />
+								<h:form>
+									<p:growl id="message" showDetail="true"></p:growl>
+									<p:commandButton process="@form" value=" Commençer "
+										icon="fa fa-warn" style="margin-top : 5px;"
+										styleClass="RedButton Wid80 Fs18 White RaisedButton"
+										onclick="PF('exerciceDialog').show()" />
+									<ui:include src="/views/dialogs/exerciceDialog.xhtml"></ui:include>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</c:if>
+		<c:if test="#{!exerciceBean.view}">
+
+			<div class="Container60 Responsive100">
+				<div class="Container100 Responsive100">
+					<div class="ContainerIndent">
+						<div class="Card ShadowEffect  ">
+							<div class="Container100 Responsive100">
+								<div class="ContainerIndent">
+									<h2 class="BigTopic">Tâches</h2>
+									<ui:include src="/views/ui/listTodo.xhtml" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="Container100 Responsive100">
+					<div class="ContainerIndent">
+						<div class="Card ShadowEffect  ">
+							<div class="Container100">
+								<div class="ContainerIndent">
+									<H2>Devis en attente de validation ( mise à jour à chaque
+										connexion )</H2>
+									<ui:include src="/views/dataTables/devisNonFactureDatas.xhtml"></ui:include>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="Container100 Responsive100">
+					<div class="ContainerIndent">
+						<div class="Card ShadowEffect  ">
+							<div class="Container100">
+								<div class="ContainerIndent">
+									<H2>Impayés</H2>
+									<c:choose>
+										<c:when test="#{not empty clientsListBean.list}">
+											<ui:include src="/views/dataTables/clientsSoldeDatas.xhtml"></ui:include>
+										</c:when>
+										<c:otherwise>
+											<span> Il n'y a pas de valeur à afficher </span>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="Container40 Responsive100 ">
+				<div class="Container100 Responsive100">
+					<div class="ContainerIndent">
+						<div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
+							<div class="Container100"
+								style="margin: 0px 10px 10px -10px; padding: 0px 10px;">
+								<div class="SoftGreenBack DispInlBlock Fleft"
+									style="margin: -10px 10px -20px -10px; padding: 20px 10px;">
+									<i class="fa fa-search Green Fs100"></i>
+								</div>
+								<span class="Gray FontRobotoLight Fs20">Rechercher</span><br />
+								<ui:include src="/views/ui/autocompleteSearch.xhtml" />
+							</div>
+						</div>
+					</div>
+					<div class="ContainerIndent">
+						<div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
+							<div class="Container100"
+								style="margin: 0px 10px 10px -10px; padding: 0px 10px;">
+								<div class="SoftGreenBack DispInlBlock Fleft"
+									style="margin: -10px 10px -20px -10px; padding: 20px 10px;">
+									<i class="fa fa-briefcase Green Fs100"></i>
+								</div>
+								<span class="Gray FontRobotoLight Fs20"> Exercice
+									comptable </span><br />
+								<c:choose>
+									<c:when test="#{exerciceBean.view}">
+										<span class="Red Fs30 FontRobotoBold"> Pas d'éxercice
+											pas de chocolat : )</span>
+									</c:when>
+									<c:otherwise>
+										<span class="Green Fs30 FontRobotoBold">
+											#{exerciceBean.exercice.numero} </span>
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</div>
+						<div class="ContainerIndent">
+							<div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
+								<div class="Container100"
+									style="margin: 0px 10px 10px -10px; padding: 0px 10px;">
+									<div class="SoftOrangeBack DispInlBlock Fleft"
+										style="margin: -10px 10px -20px -10px; padding: 20px 10px;">
+										<i class="fa fa-bank Orange Fs100"></i>
+									</div>
+									<span class="Gray FontRobotoLight Fs20">CA </span><br />
+									<c:choose>
+										<c:when test="#{caBean.view}">
+											<span class="Green Fs30 FontRobotoBold">#{caBean.ca} €
+											</span>
+										</c:when>
+										<c:otherwise>
+											<span class="Red Fs30 FontRobotoBold"> 0 € </span>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+						</div>
+						<div class="ContainerIndent">
+							<div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
+								<div class="Container100"
+									style="margin: 0px 10px 10px -10px; padding: 0px 10px;">
+									<div class="SoftOrangeBack DispInlBlock Fleft"
+										style="margin: -10px 10px -20px -10px; padding: 20px 10px;">
+										<i class="fa fa-eur Orange Fs100"></i>
+									</div>
+									<span class="Gray FontRobotoLight Fs20">Trésorerie</span><br />
+									<c:choose>
+										<c:when test="#{balanceBean.view}">
+											<c:choose>
+												<c:when
+													test="#{balanceBean.tresorerie >= balanceBean.zero} }">
+													<span class="Green Fs30 FontRobotoBold">#{balanceBean.tresorerie}
+														€ </span>
+												</c:when>
+												<c:otherwise>
+													<span class="Red Fs30 FontRobotoBold">#{balanceBean.tresorerie}
+														€ </span>
+												</c:otherwise>
+											</c:choose>
+										</c:when>
+										<c:otherwise>
+											<span class="Red Fs30 FontRobotoBold">0 € </span>
+										</c:otherwise>
+									</c:choose>
+
+								</div>
+							</div>
+						</div>
+						<div class="ContainerIndent">
+							<div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
+								<div class="Container100"
+									style="margin: 0px 10px 10px -10px; padding: 0px 10px;">
+									<div class="SoftBlueBack DispInlBlock Fleft"
+										style="margin: -10px 10px -20px -10px; padding: 20px 10px;">
+										<i class="fa fa-angellist Blue Fs100"></i>
+									</div>
+									<span class="Gray FontRobotoLight Fs20">Votre Logo</span><br />
+									<span class="Green Fs30 FontRobotoBold"> <p:graphicImage
+											id="img" cache="false" style="width : 115px; height : auto;"
+											value="#{imgBean.image}" />
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+<div class="Container50 Responsive100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect  ">
+  				    <div class="Container100 Responsive100">
+                        <div class="ContainerIndent">   
+                        	<c:choose>
+                        		<c:when test="#{caBean.view}">
+   									<ui:include src="/views/graphs/rapportsCa.xhtml"></ui:include>
+   								</c:when>
+   								<c:otherwise>
+   									Il n'y a pas de valeur à afficher
+   								</c:otherwise>
+   							</c:choose>
+   						 </div> 
+   					</div>
+   				</div>
+   			</div>
+   		</div>
+   		<div class="Container50 Responsive100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect  ">
+  				    <div class="Container100 Responsive100">
+                        <div class="ContainerIndent">   
+   							<ui:include src="/views/graphs/lineChartDepense.xhtml"></ui:include>
+   						 </div> 
+   					</div>
+   				</div>
+   			</div>
+   		</div>
+		</c:if>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	 
+	<display-name>JBDev Facturier</display-name>
+	  <description>
+  	   Facturier OpenSource pour autoentrepreneur
+  	</description>
+
+	<error-page>
+		<error-code>404</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+    
+	<!-- Spring Security Facelets Tag Library -->
+    <context-param>
+        <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+        <param-value>
+			 /WEB-INF/springsecurity.taglib.xml 
+		</param-value>
+    </context-param> 
+   
+   <!-- Log4j -->
+   <context-param>
+   	 	<param-name>log4jConfigLocation</param-name>
+   	 	<param-value>classpath:log4j.xml</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>primefaces.CLIENT_SIDE_VALIDATION</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
+	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+				 classpath:net/bull/javamelody/monitoring-spring.xml
+				 classpath:spring/spring-context.xml
+		</param-value>
+	</context-param>
+	
+	<!-- Change to "Production" when you are ready to deploy -->
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>${jsf.project.stage:Production}</param-value>
+    </context-param>
+    
+    <!-- Faces context -->
+     <context-param>
+      <param-name>javax.faces.CONFIG_FILES</param-name>
+      <param-value>/WEB-INF/faces-config.xml</param-value>
+   </context-param>
+ 	
+   <context-param>
+        <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+        <param-value>.xhtml</param-value>
+    </context-param>
+   
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+   <context-param>
+ 	  <param-name>primefaces.UPLOADER</param-name>
+  	 <param-value>commons</param-value>
+   </context-param>	
+  
+
+   <!-- Spring Security -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+    </filter-mapping> 
+   
+     <filter>
+  		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+  		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+  		<init-param>
+    		<param-name>thresholdSize</param-name>
+    		<param-value>819200</param-value>
+  		</init-param>
+  		  <init-param>
+            <param-name>uploadDirectory</param-name>
+            <param-value>/tmp/</param-value>
+        </init-param>
+	</filter>
+
+	<filter-mapping>
+ 		 <filter-name>PrimeFaces FileUpload Filter</filter-name>
+ 		 <servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
+	
+<filter>
+    <filter-name>javamelody</filter-name>
+    <filter-class>net.bull.javamelody.MonitoringFilter</filter-class>
+  
+</filter>
+<filter-mapping>
+    <filter-name>javamelody</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+
+</filter-mapping>
+<listener>
+    <listener-class>net.bull.javamelody.SessionListener</listener-class>
+</listener>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+   
+	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+        <listener-class>
+            org.springframework.web.context.request.RequestContextListener
+        </listener-class>
+    </listener>
+    
+    <listener>
+        <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+    </listener>
+    
+   <!-- Welcome page -->
+    <welcome-file-list>
+        <welcome-file>faces/login.xhtml</welcome-file>
+    </welcome-file-list>
+    
+    <!-- Theme PrimeFace -->
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>rio</param-value>
+  </context-param>
+   
+   <!-- SESSION config -->
+ 	<session-config>
+  		  <session-timeout>30</session-timeout>
+  	</session-config>
+    
+     <mime-mapping>
+        <extension>ttf</extension>
+        <mime-type>application/font-sfnt</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>woff</extension>
+        <mime-type>application/font-woff</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>woff2</extension>
+        <mime-type>application/font-woff2</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>eot</extension>
+        <mime-type>application/vnd.ms-fontobject</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>eot?#iefix</extension>
+        <mime-type>application/vnd.ms-fontobject</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>svg</extension>
+        <mime-type>image/svg+xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>svg#exosemibold</extension>
+        <mime-type>image/svg+xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>svg#exobolditalic</extension>
+        <mime-type>image/svg+xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>svg#exomedium</extension>
+        <mime-type>image/svg+xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>svg#exoregular</extension>
+        <mime-type>image/svg+xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>svg#fontawesomeregular</extension>
+        <mime-type>image/svg+xml</mime-type>
+    </mime-mapping>
+     <mime-mapping>
+        <extension>png</extension>
+        <mime-type>image/png</mime-type>
+    </mime-mapping>
+    
+</web-app>

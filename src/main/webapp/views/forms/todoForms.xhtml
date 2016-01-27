@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+                
+				<h:form id="formTodo">
+				<p:growl id="message"  showDetail="true"  ></p:growl>
+    						  <p:panelGrid  id="todoPanel" layout="grid" columns="1" styleClass="Wid90">
+	    						     <p:column>
+	                                    <h2>Tâches</h2>
+	                              		 <p:inputTextarea styleClass="Wid90" placeholder="A faire" value="#{todoBean.todo.todo}" /><br />
+	                              		 <h:outputText id="labelDateDebut" for="calendareDebut" value=" Date de debut "></h:outputText>
+	                                   	 <p:calendar  id="calendareDebut"  pattern="dd/MM/yyyy" mask="true" placeholder="Date de debut" value="#{todoBean.todo.dateDebutTodo}" effect="fold" ajax="false"/><br />
+	                               		 <h:outputText id="labelDateFin" for="calendareFin" value=" Date de fin "></h:outputText>
+	                               		 <p:calendar  id="calendareFin"  pattern="dd/MM/yyyy" mask="true" placeholder="Date de fin" value="#{todoBean.todo.dateFinTodo}" effect="fold"  ajax="false"/><br />	
+									</p:column>
+	
+								 </p:panelGrid>
+                             <p:commandButton process="@form" value="Enregistrer" action="#{todoBean.create}" icon="fa fa-key" style="margin-top : 5px;" styleClass="GreenButton Wid100 Fs18 White RaisedButton" oncomplete="PF('todoOverlay').hide()" update="@(.ui-datatable), @(:input)"/>       	 	   	
+				</h:form>
+</ui:composition>

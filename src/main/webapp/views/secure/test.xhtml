@@ -1,0 +1,86 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/template.xhtml" xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+
+		<script type="text/javascript">
+			function handleDrop(event, ui) {
+				var droppedCar = ui.draggable;
+
+				droppedCar.fadeOut('fast');
+			}
+		</script>
+
+		<h:form id="carForm">
+		<p:growl id="message" showDetail="true" />
+			<div class="Container30 Responsive100">
+				<div class="ContainerIndent">
+					<ui:include src="/views/ui/listFournisseurs.xhtml"></ui:include>
+				</div>
+			</div>
+			<p:fieldset id="availableCarsField" legend="AvailableCars">
+				<p:dataGrid id="availableCars" var="car"
+					value="#{produitsBean.produitsFournisseurs}" columns="3">
+					<p:panel id="pnl" header="#{car.nom}" style="text-align:center">
+						<h:panelGrid columns="1" style="width:100%">
+							<h:outputText value="#{car.description}"></h:outputText>
+						</h:panelGrid>
+					</p:panel>
+
+					<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar"
+						stack=".ui-panel" />
+				</p:dataGrid>
+			</p:fieldset>
+
+			<p:fieldset id="selectedCars" legend="Selected Cars"
+				style="margin-top:20px">
+				<p:outputPanel id="dropArea">
+					<h:outputText value="!!!Drop here!!!"
+						rendered="#{empty commandesBean.contients}"
+						style="font-size:24px;" />
+					<p:dataTable id="selectedCarsTable" var="car"
+						value="#{commandesBean.contients}"
+						rendered="#{not empty commandesBean.produits}">
+						<p:column headerText="Id">
+							<h:outputText value="#{car.produits.nom}" />
+						</p:column>
+
+					</p:dataTable>
+				</p:outputPanel>
+			</p:fieldset>
+
+			<p:droppable for="selectedCars" tolerance="touch"
+				activeStyleClass="ui-state-highlight" datasource="availableCars"
+				onDrop="handleDrop">
+				<p:ajax listener="#{commandesBean.onProduitDrop}"
+					update="dropArea availableCars" />
+			</p:droppable>
+			<p:calendar id="calendarCmd" pattern="dd/MM/yyyy" mask="true"
+				placeholder="Date de commande"
+				value="#{commandesBean.commande.dateCommande}" effect="fold" />
+
+			<p:dialog id="dialogCommande" header="Quantité"
+				widgetVar="quantiteDialog" showEffect="slide" hideEffect="explode"
+				resizable="false">
+				<p:inputText styleClass="Wid90" placeholder="Nom ou Entreprise"
+					value="#{commandesBean.quantite}" required="true"
+					requiredMessage="Une quantité est nécassaire" />
+				<p:commandButton process="@form" value="Valider"
+					action="#{commandesBean.addProduit}"
+					styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+					update="@(.ui-datatable)" />
+			</p:dialog>
+			<p:commandButton process="@form" value="Enregistrer"
+				action="#{commandesBean.create}" icon="fa fa-key"
+				style="margin-top : 5px;"
+				styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+				update="@(.ui-datatable)" />
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

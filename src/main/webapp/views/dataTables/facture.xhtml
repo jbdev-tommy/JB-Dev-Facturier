@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<h:form id="dataFacture">
+		<p:dataTable id="factureDataBisTable" cache="true" var="fact"
+			value="#{factureListBean.list}" rows="10" selectionMode="single"
+			selection="#{facturesBean.facture}" paginator="true"
+			paginatorAlwaysVisible="false" rowKey="#{fact.numero}" reflow="true">
+			<p:ajax process="@form" event="rowSelect"
+				listener="#{facturesBean.view}"
+				update="@(.ui-datatable), @widgetVar(factureDialog)" />
+
+			<p:column headerText="Numéro de facture">
+				<p:outputLabel value="#{fact.numero}" />
+			</p:column>
+			<p:column headerText="Date de facturation">
+				<p:outputLabel value="#{fact.dateFacture}" />
+			</p:column>
+			<p:column headerText="Clients">
+				<p:outputLabel value="#{fact.devis.clients.personnes.nom} " />
+				<p:outputLabel value="#{fact.devis.clients.personnes.prenom}" />
+			</p:column>
+			<p:column headerText="Solde">
+				<h:outputText value="Détails des paiments" />
+				<p:rowToggler />
+			</p:column>
+
+			<p:rowExpansion>
+				<ui:include src="/views/ui/exportersData.xhtml">
+					<ui:param name="tab" value="soldeFact" />
+				</ui:include>
+				<p:dataTable id="soldeFact" var="vente" value="#{fact.ventes}"
+					reflow="true" rows="10" rowKey="#{vente.dateVente}"
+					paginator="true" paginatorAlwaysVisible="false">
+
+					<p:column headerText="Date d'accompte">
+						<h:outputText value="#{vente.dateVente}" />
+					</p:column>
+					<p:column headerText="Accompte TTC">
+						<h:outputText value="#{vente.accompte}" />
+					</p:column>
+					<p:column headerText="Type de paiment">
+						<h:outputText value="#{vente.typeDePaiment.nom}" />
+					</p:column>
+				</p:dataTable>
+			</p:rowExpansion>
+		</p:dataTable>
+
+		<ui:include src="/views/dialogs/factureDialog.xhtml"></ui:include>
+	</h:form>
+
+</ui:composition>

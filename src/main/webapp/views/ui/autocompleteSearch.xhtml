@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <h:form>
+		<p:growl id="message"  showDetail="true"  ></p:growl>
+		<p:autoComplete id="searchList" placeholder="Nom" value="#{searchBean.select}" completeMethod="#{searchBean.completeText}">
+			 <p:ajax event="itemSelect" listener="#{searchBean. getObjectSelect}" update="@form"></p:ajax>
+		</p:autoComplete>
+   		
+   		<ui:include src="/views/dialogs/produitsDialog.xhtml">
+   				<ui:param name="action" value="user" />
+   		</ui:include>
+   		<ui:include src="/views/dialogs/fournisseursDialog.xhtml">
+   				
+   		</ui:include>
+   		<ui:include src="/views/dialogs/clientsDialog.xhtml"/>
+      
+      </h:form>			
+</ui:composition>

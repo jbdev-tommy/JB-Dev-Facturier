@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+                
+    						  <p:panelGrid  id="todoPanel" layout="grid" columns="1" styleClass="Wid90">
+	    						     <p:column>
+	                                    <h2> Exercice </h2>
+	                              		 <p:inputText styleClass="Wid90" placeholder="Numéro de l'éxercice" value="#{exerciceBean.exercice.numero}" /><br />
+	                              		 <h:outputText id="labelExDateDebut" for="calendareExDebut" value=" Date de debut "></h:outputText>
+	                                   	 <p:calendar  id="calendareExDebut"  pattern="dd/MM/yyyy" mask="true" placeholder="Date de début" value="#{exerciceBean.exercice.dateDebut}" effect="fold" ajax="false"/><br />
+	                               		 <h:outputText id="labelDateExFin" for="calendareExFin" value=" Date de fin "></h:outputText>
+	                               		 <p:calendar  id="calendareExFin"  pattern="dd/MM/yyyy" mask="true" placeholder="Date de fin" value="#{exerciceBean.exercice.dateFin}" effect="fold"  ajax="false"/><br />	
+									</p:column>
+	
+								 </p:panelGrid>
+                             <p:commandButton process="@form" value="Enregistrer" action="#{exerciceBean.create}" icon="fa fa-key" style="margin-top : 5px;" styleClass="GreenButton Wid100 Fs18 White RaisedButton" oncomplete="#{dialog}" update="@all" />       	 	   	
+                             
+</ui:composition>

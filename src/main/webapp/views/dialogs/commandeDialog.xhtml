@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+	<p:dialog id="dialogCommandeInfo" header="Info Commande"
+		widgetVar="commandeDialog" showEffect="slide" hideEffect="explode"
+		resizable="false">
+			
+			
+				
+		<p:commandButton process="@form" value="Reçut"
+			action="#{commandesBean.update}"
+			styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+			update="@(.ui-datatable)" />
+		<div class="EmptyBox20"></div>
+		<p:commandButton process="@form" value="Suprimer"
+			action="#{commandesBean.delete}"
+			styleClass="RedButton Wid100 Fs18 White RaisedButton"
+			update="@(.ui-datatable)" />
+		<div class="EmptyBox20"></div>
+			<h2>Accompte</h2>
+				<p:inputText styleClass="Wid80" placeholder="Accompte en euro"
+					value="#{achatsBean.achat.accomte}" />€ <br />
+				<ui:include src="/views/ui/listTypePaiment.xhtml"></ui:include>
+		<div class="EmptyBox20"></div>
+		
+		<p:commandButton process="@form"
+			value="Enregistrer accompte en caisse" action="#{achatsBean.create}"
+			styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+			update="@(.ui-datatable), @(:input)" />
+		<div class="EmptyBox20"></div>
+		<p:commandButton process="@form" value="Fermer"
+			action="#{commandesBean.close}"
+			styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+			update="@(.ui-datatable)" />
+
+
+	</p:dialog>
+	
+</ui:composition>

@@ -1,0 +1,109 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<div class="Container50 Responsive50">
+		<c:if test="#{action eq 'fournisseur'}">
+
+			<h:form id="addFournisseur">
+				<p:commandButton id="addFour" icon="fa fa-plus  Fs16 White"
+					value=" Nouveau fournisseur"
+					styleClass="Fleft GreenButton TexAlCenter">
+					<p:resetInput target="@(:input)" />
+					</p:commandButton>
+				<p:overlayPanel id="addFourPanel" widgetVar="fourOverlay"
+					for="addFour" hideEffect="fade" dynamic="true"
+					styleClass="Wid50 Responsive50">
+					<div class="Container100 Responsive100">
+						<div class="ContainerIndent">
+							<div class="Card ShadowEffect  ">
+								<input type="hidden" name="action" value="quick" />
+								<ui:include src="/views/forms/fournisseursForms.xhtml">
+									<ui:param name="update" value="@(.ui-datatable), @(:input)" />
+								</ui:include>
+								<p:commandButton process="@form" value="Enregistrer" action="#{fournisseursBean.create}" icon="fa fa-key" style="margin-top : 5px;" styleClass="GreenButton Wid100 Fs18 White RaisedButton" update="@(.ui-datatable), @(:input)"/> 
+							</div>
+						</div>
+					</div>
+				</p:overlayPanel>
+			</h:form>
+
+		</c:if>
+			<div class="EmptyBox20"></div>
+
+		<h:form id="addCategories">
+			<p:commandButton id="addCategorie" icon="fa fa-plus  Fs16 White"
+				value=" Nouvelle categorie"
+				styleClass="Fleft GreenButton TexAlCenter">
+				</p:commandButton>
+			<p:overlayPanel id="addCatPanel" widgetVar="catOverlay"
+				for="addCategorie" hideEffect="fade" dynamic="true"
+				styleClass="Wid50 Responsive50">
+				<div class="Container100 Responsive100">
+					<div class="ContainerIndent">
+						<div class="Card ShadowEffect  ">
+							<ui:include src="/views/forms/categoriesForms.xhtml" />
+						</div>
+					</div>
+				</div>
+			</p:overlayPanel>
+		</h:form>
+	</div>
+
+
+
+	<h:form id="produitForm">
+		<p:growl id="message" showDetail="true"></p:growl>
+		<c:if test="#{action eq 'fournisseur'}">
+			<div class="Container50 Responsive50">
+				<h3>Selectionner une categorie</h3>
+				<ui:include src="/views/ui/listCategories.xhtml" />
+			</div>
+		</c:if>
+		<div class="EmptyBox10"></div>
+		<div class="Container100 Responsive100">
+			<p:outputPanel id="panelProduit">
+
+				<p:column>
+					<p:row>
+						<h:outputText for="nomPdt" value="Nom produit " />
+						<p:inputText id="nomPdt" styleClass="Wid90"
+							value="#{produitsBean.produit.nom}" />
+						<br />
+					</p:row>
+					<div class="EmptyBox10"></div>
+					<p:row>
+						<h:outputText for="priHtIn" value="Prix Ht / Taux Horaire " />
+						<p:inputText id="prixHtIn" styleClass="Wid90"
+							value="#{produitsBean.produit.prixHt}" />
+						<br />
+					</p:row>
+					<p:row>
+						<p:selectBooleanCheckbox value="#produitsBean.produit.service}"
+							itemLabel="Service" styleClass="Fleft" />
+
+					</p:row>
+					<div class="EmptyBox10"></div>
+					<p:row>
+						<h:outputText value="Description :" />
+						<p:inputTextarea styleClass="Wid90"
+							value="#{produitsBean.produit.description}" />
+						<br />
+					</p:row>
+
+				</p:column>
+
+				<div class="EmptyBox10"></div>
+				<p:commandButton process="@form" value="Enregistrer"
+					action="#{produitsBean.create}"
+					styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+					update="#{update}" />
+				<div class="EmptyBox10"></div>
+
+			</p:outputPanel>
+		</div>
+	</h:form>
+</ui:composition>

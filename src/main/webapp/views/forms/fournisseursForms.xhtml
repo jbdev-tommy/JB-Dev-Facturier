@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+<h2 class="BigTopic">Ajouter un fournisseur</h2>
+  
+    						    <p:panelGrid id="fournisseursForm" columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="Container100 FormContent">
+                      
+                                 <p:column>
+                                    <h2>Coordonnées</h2>
+                                    <div class="EmptyBox10"></div>
+                               		  <p:inputText styleClass="Wid90" placeholder="Email" value="#{fournisseursBean.fournisseur.email}"/>
+                               		   <p:inputText styleClass="Wid90" placeholder="Nom" value="#{fournisseursBean.entreprise.nom}"/>
+                   			   		  <p:inputText styleClass="Wid90" placeholder="Téléphone" value="#{fournisseursBean.entreprise.telephone}"/>
+                                	  <p:inputText styleClass="Wid90" placeholder="Numéro Siret" value="#{fournisseursBean.entreprise.numSiret}"/>
+                                	   <p:inputText styleClass="Wid90" placeholder="Identifiant TVA" value="#{fournisseursBean.entreprise.identifiantTva}"/>
+                                 	<div class="EmptyBox10"></div>
+                                		<ui:include src="/views/ui/autocomplete.xhtml"></ui:include>
+                    			</p:column>
+                    			    	<p:column>
+                             			<h2 class="BigTopic">Description</h2>
+                              			<p:inputTextarea rows="5"  value="#{fournisseursBean.fournisseur.description}" placeholder="Vous souhaitez ajouter quelque chose ?" style="margin-top : 5px; width:95%;"/>
+                         				
+                            	</p:column>
+                    	 </p:panelGrid>
+               
+
+</ui:composition>

@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:sec="http://www.springframework.org/security/tags"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+		<p:growl id="message"  showDetail="true"  ></p:growl>
+   		
+   	
+   		 <p:dataTable id="entrepotDataTable" widgetVar="entrepotsTable" var="entrepots" reflow="true" value="#{entrepotsListBean.list}"  rows="10"  paginator="true" paginatorAlwaysVisible="false" rowKey="#{entrepots.numero}">
+       		       <p:column headerText="Numero" sortBy="#{entrepots.numero}" >
+       		       		<p:outputLabel value="#{entrepots.numero}"/><br />
+       		       		<p:outputLabel value="#{entrepots.nom}"/><br />
+       				</p:column>
+       				<p:column>
+
+       				 <ui:include src="/views/ui/exportersData.xhtml">
+	 						<ui:param name="tab" value="produitsEntrepot"/>
+						</ui:include>
+							<p:dataTable  id="produitsEntrepot" var="contient" value="#{entrepots.produitses}"  reflow="true" rows="10" paginator="true" paginatorAlwaysVisible="false">
+              	
+            		<p:column headerText="Nom ">
+                		<h:outputText value="#{contient.nom}" />
+            		</p:column>
+
+            		<p:column headerText="Description ">
+                		<h:outputText value="#{contient.description}" />
+           			</p:column>
+            
+ 					<p:column headerText="Stock">
+                		<h:outputText value="#{contient.stock}" />
+           			</p:column>
+			
+        		</p:dataTable>
+  
+       				</p:column>
+        </p:dataTable>
+		
+			<p:panelGrid id="EntrepotPanel" columns="1" layout="grid"
+		style="border:0px !important; background:none;"
+		styleClass="FormContent">
+		<p:column>
+			<h2>Nouveau Entrepot</h2>
+			<p:inputText styleClass="Wid90" placeholder="Numero"
+				value="#{entrepotsBean.entrepot.numero}" required="true"
+				requiredMessage="Un numéro est nécéssaire" />
+			<p:inputText styleClass="Wid90" placeholder="Nom"
+				value="#{entrepotsBean.entrepot.nom}" required="true"
+				requiredMessage="Un nom est nécéssaire" />
+		</p:column>
+	</p:panelGrid>
+   			<p:commandButton process="@form" value="Enregistrer"
+		action="#{entrepotsBean.create}" icon="fa fa-key"
+		style="margin-top : 5px;"
+		styleClass="GreenButton Wid100 Fs18 White RaisedButton" update="@(.ui-datatable) :@form" />
+			<div class="EmptyBox20"></div>
+     
+
+</ui:composition>

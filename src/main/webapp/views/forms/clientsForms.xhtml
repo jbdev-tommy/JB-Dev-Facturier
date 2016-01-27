@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+              	
+    						  
+    						   <p:panelGrid  id="clientPanel" columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
+                                 <p:column>
+                                    <h2>Coordonnées</h2>
+                               		  <p:inputText styleClass="Wid90" placeholder="Nom ou Entreprise" value="#{clientsBean.personne.nom}" required="true" requiredMessage="Le nom client est obligatoire"/>
+                               		  <p:inputText styleClass="Wid90" placeholder="Prénom ou contact entreprise" value="#{clientsBean.personne.prenom}" required="true" requiredMessage="Un contact ou un prénom personnalise votre devis" /><br />
+                               		  <p:calendar  id="calendare"  pattern="dd/MM/yyyy" mask="true" placeholder="Date de naissance" value="#{clientsBean.personne.dateNaissance}" effect="fold" /><br />
+                               		  <p:inputText styleClass="Wid90" placeholder="Téléphone fixe, téléphone protable" value="#{clientsBean.personne.telephones}" required="true" requiredMessage="Au moins un numéro est préférable"/>
+					           </p:column>
+                              	 <p:column>
+                              	 	   <p:inputText styleClass="Wid90" placeholder="Email" value="#{clientsBean.client.email}" required="false" requiredMessage="L'Email est obligatoire ( module mailling en devellopement )"/>		   		  
+                               		   <p:inputText styleClass="Wid90" placeholder="Numéro Siret" value="#{clientsBean.client.numSiretClient}"/>
+                        	      		<ui:include src="/views/ui/autocomplete.xhtml"></ui:include>
+                    			</p:column>
+                    		 	</p:panelGrid>
+                    	
+                             	<p:commandButton process="@form" value="Enregistrer" action="#{clientsBean.create}" icon="fa fa-key" style="margin-top : 5px;" styleClass="GreenButton Wid100 Fs18 White RaisedButton" update="#{update}" /> 			     	  
+
+</ui:composition>

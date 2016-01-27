@@ -1,0 +1,16 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <h3> Forme juridique </h3>
+     <p:selectOneRadio id="listRegime" value="#{formesJuridiqueBean.forme}" converter="formesConverter" var="rg" style="width : 250px;" required="true"  requiredMessage="Avez vous réellement une société ?" layout="grid" columns="2">
+            <f:selectItems value="#{formesJuridiqueListBean.list}" var="regime" itemLabel="#{regime.statuJuridique}" itemValue="#{regime.statuJuridique}" />
+<!--             <p:column> -->
+<!--                 <h:outputText value = "#{rg.statuJuridique}"/> -->
+<!--             </p:column> -->
+<!--               <p:column> -->
+<!--                 <h:outputText value = "#{rg.description}"/> -->
+<!--             </p:column> -->
+ 	</p:selectOneRadio>
+</ui:composition>

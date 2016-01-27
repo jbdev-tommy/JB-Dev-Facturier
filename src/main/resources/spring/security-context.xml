@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+    <!-- Enable method level Spring Security by annotations  -->
+	<sec:http auto-config="true" use-expressions="true" >
+  		 
+  		<sec:csrf disabled="true"/> <!-- disabled="true" -->
+  		
+  		<!-- Define login page for Spring Security -->      
+     	<sec:form-login login-page='/login.xhtml' default-target-url='/WEB-INF/views/secure/home.xhtml'
+            always-use-default-target='true' />
+  	
+		<sec:intercept-url
+			pattern="/login*"
+			access="permitAll" />
+		<sec:intercept-url
+			pattern="/views/secure/**"
+			access="hasRole('ROLE_USER')" />
+	   <sec:intercept-url
+			pattern="/views/secure/**"
+			access="hasRole('ROLE_ADMIN')" />
+ 
+		
+    	<!-- Define logout properties for Spring Security -->
+   		 <sec:logout invalidate-session="true" delete-cookies="true" logout-success-url="/login.xhtml"></sec:logout>
+   		 <sec:session-management invalid-session-url="/login.xhtml" ></sec:session-management>
+    </sec:http>
+    
+    <!-- Set customUserDetailsService class as the authentication Manager for Spring Security-->
+    <sec:authentication-manager alias="authenticationManager">
+        <sec:authentication-provider user-service-ref="myUserDetailsService">
+            <sec:password-encoder hash="bcrypt"></sec:password-encoder>
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+
+    <bean name="myLoginBean"
+    	class="fr.jbdev.facturier.controller.user.LoginBean">
+		<property name="authenticationManager" ref="authenticationManager"></property>
+	</bean>
+
+</beans>

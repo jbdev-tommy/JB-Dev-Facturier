@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui">
+    
+
+   		<h:form>
+  	
+  			<div class="Container100 Responsive30 ">
+   				<div class="ContainerIndent Fs18 TexAlLeft">
+  					<p:chart type="line" model="#{caBean.caPayeModel}" style="height:600px" responsive="true"/>
+  				</div>
+  			</div>
+  			
+  	<div class="Container100 Responsive40">
+        <div class="ContainerIndent">
+           <div class="Card ShadowEffect  ">
+  			<p:outputPanel id="prix">
+ 		 		<div class="Container100 Responsive100 ">
+   					<div class="ContainerIndent SoftBlueBack Fs18 TexAlLeft">
+   						<span class="Wid100  White TexAlLeft " >CA TOTAL : </span>
+       					<h:outputText styleClass="Wid100  White " id="ca"  value="#{caBean.ca} € " />
+  					</div>
+      			</div>	
+				
+       		</p:outputPanel>
+
+			</div>
+		</div>
+	</div>
+
+  		</h:form>
+
+</ui:composition>

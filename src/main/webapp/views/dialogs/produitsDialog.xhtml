@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:sec="http://www.springframework.org/security/tags"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+          
+
+         <p:dialog  id="dialogPdtInfo" header="Info Produit" widgetVar="produitDialog" showEffect="slide" hideEffect="explode" resizable="true">
+      	
+			<div class="EmptyBox10"></div>
+			<p:outputPanel  id="panelProduit">
+						
+ 						<p:column>
+ 							<p:row>
+                        		<h:outputText for="nomPdt" value="Nom produit " />
+                        		<p:inputText id="nomPdt" styleClass="Wid90" value="#{produitsBean.produit.nom}" /><br />
+							</p:row>
+							<div class="EmptyBox10"></div>
+							<p:row>      
+                        		<h:outputText for="priHtIn" value="Prix Ht / Taux Horaire " />
+                        		<p:inputText id="prixHtIn" styleClass="Wid90" value="#{produitsBean.produit.prixHt}"/><br />
+                        	</p:row>
+                        
+                        	<div class="EmptyBox10"></div>
+							<p:row>    
+                        		<h:outputText value="Description :" />
+                        		<p:inputTextarea styleClass="Wid90" value="#{produitsBean.produit.description}" /><br />	
+							</p:row>	
+							
+                        </p:column>
+                     			
+        	</p:outputPanel>
+        	       
+                    	<p:commandButton process="@form" value="Mettre à jour" action="#{produitsBean.update}" styleClass="GreenButton Wid100 Fs18 White RaisedButton" update="@(.ui-datatable)" />
+        				<div class="EmptyBox10"></div>  
+        				<c:if test="#{action eq 'user'}">
+                    		<p:commandButton process="@form" value="Suprimmer" action="#{produitsBean.delete}" styleClass="RedButton Wid100 Fs18 White RaisedButton" update="@(.ui-datatable)" />
+        				</c:if>
+        			
+         </p:dialog>
+
+</ui:composition>

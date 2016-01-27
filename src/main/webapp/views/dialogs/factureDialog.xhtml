@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<p:dialog header="Ajouter un accompte" widgetVar="factureDialog"
+		showEffect="bounce" hideEffect="explode" resizable="false">
+		<p:outputPanel id="dialogFacture">
+			<h2>Facture numéro #{facturesBean.facture.numero}</h2>
+			<div class="EmptyBox10"></div>
+			<div class="Container100 TurquoiseBack">
+				<div class="ContainerIndent">
+					<h:outputText
+						value="#{facturesBean.facture.devis.clients.personnes.nom}"
+						styleClass="Fs20 FontBold" />
+					<br />
+				</div>
+			</div>
+			<h:outputText
+				value="#{facturesBean.facture.devis.clients.personnes.nom}"
+				styleClass="Fs17" />
+			<br />
+			<h:outputText value="#{facturesBean.facture.devis.clients.email}"
+				styleClass="Fs17" />
+			<br />
+			<p:column>
+				<div class="EmptyBox20"></div>
+				<h2>Accompte</h2>
+				<p:inputText styleClass="Wid25" placeholder="Accompte en euro"
+					value="#{ventesBean.vente.accompte}" /> €<br />
+				<ui:include src="/views/ui/listTypePaiment.xhtml"></ui:include>
+			</p:column>
+		</p:outputPanel>
+		<div class="EmptyBox10"></div>
+		<p:commandButton id="btn_view" value="Apercu"
+			onclick="form.target='_blank'" actionListener="#{facturesBean.pdf}"
+			styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+			process="@form" ajax="false" />
+		<div class="EmptyBox10"></div>
+		<p:commandButton process="@form"
+			value="Enregistrer accompte en caisse" action="#{ventesBean.create}"
+			styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+			update="@(.ui-datatable), @(:input)" />
+	</p:dialog>
+
+</ui:composition>

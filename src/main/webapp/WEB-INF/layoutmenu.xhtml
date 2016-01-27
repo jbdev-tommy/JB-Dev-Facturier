@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:pr="http://primefaces.org/rio"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<div class="Animated05" id="layout-menu-cover">
+		<h:form id="layoutMenu">
+			<ul class="layout-menu">
+				<li><a class="menulink ripplelink"> <i
+						class="icon-round58 Fs40"></i> <span class="Fs18">#{userDetail.personne.prenom}
+							#{userDetail.personne.nom}<i class="icon-downwards Fright Fs20"></i><br />
+						<span class="Fs12 FontRobotoLight"></span>
+					</span>
+				</a>
+					<ul>
+
+						<li><p:commandLink id="monCompte" value="Mon compte"
+								action="/views/secure/userInfos"
+								actionListener="#{userDetail.initLogo}" ajax="false" /></li>
+
+						<li><p:commandLink id="logout" value="Déconnexion"
+								action="#{myLoginBean.logout}" ajax="false" /></li>
+
+					</ul></li>
+			</ul>
+			<div class="Separator"></div>
+
+			<pr:menu>
+				<p:menuitem id="rm_dashboard" value="Tableau de bord"
+					icon="icon-planet29" outcome="/views/secure/csrf_home" ajax="false">
+
+				</p:menuitem>
+				<p:submenu id="rm_pdts" label="Contacts" icon="icon-users25" >
+					<p:menuitem id="rm_four" value="Mes Fournisseurs"
+						icon="fa fa-child" outcome="/views/secure/fournisseurs" />
+					<p:menuitem id="rm_clients" value="Mes clients" icon="fa fa-child"
+						outcome="/views/secure/clients" /> 
+				</p:submenu>
+
+				<p:submenu id="rm_achat" label="Achats" icon="icon-store">
+
+					<p:menuitem id="rm_pdtFour" value="Produits / Services"
+						icon="icon-in-alt" outcome="/views/secure/produits" ajax="false">
+						<f:param name="action" value="fournisseur" />
+					</p:menuitem>
+
+					<p:menuitem id="rm_cmd" value="Commandes" icon="icon-in-alt"
+						outcome="/views/secure/commande" ajax="false" />
+					<p:menuitem id="rm_stocke" value="Entrepots" icon="icon-in-alt"
+						outcome="/views/secure/entrepot" ajax="false">
+						<f:param name="action" value="fournisseur" />
+					</p:menuitem>
+
+				</p:submenu>
+
+				<p:submenu id="rm_ventes" label="Ventes" icon="fa fa-eur">
+					<p:menuitem id="rm_pdt" value="Mes produits/Services"
+						icon="icon-in" outcome="/views/secure/produits" ajax="false">
+						<f:param name="action" value="user" />
+					</p:menuitem>
+					<p:menuitem id="rm_devis" value="Devis" icon="icon-newspaper"
+						action="/views/secure/devis" ajax="false" />
+					<p:menuitem id="rm_facture" value="Factures" icon="icon-newspaper"
+						outcome="/views/secure/factures" ajax="false"
+						update="@(.ui-datatable)" />
+				</p:submenu>
+
+				<p:submenu id="rm_caisse" label="Caisse" icon="icon-list88">
+					<p:menuitem id="rm_journAchat" value="Journaux" icon="icon-list"
+						outcome="/views/secure/journaux" ajax="false" />
+					
+				</p:submenu>
+
+				<p:submenu id="rm_rapports" label="Rapports" icon="icon-copy31">
+					<p:menuitem id="rm_rappCa" value="Chiffre d'affaire"
+						icon="icon-list" outcome="/views/secure/rapportsCa" ajax="false" />
+					<p:menuitem id="rm_rappDep" value="Dépenses" icon="icon-newspaper"
+						outcome="/views/secure/rapportsDepense" ajax="false" update="@form" />
+					
+				</p:submenu>
+
+				<p:separator />
+			</pr:menu>
+		</h:form>
+
+
+
+	</div>
+</ui:composition>

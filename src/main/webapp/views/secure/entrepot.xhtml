@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/template.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+         
+    <ui:define name="content">	
+    	
+		  <div class="Container50 Responsive100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect  ">
+  				    <div class="Container100 Responsive100">
+                        <div class="ContainerIndent">
+                            <h2 class="BigTopic">Ajouter un lieu de stockage</h2>
+                              	<h:form id="addEntrepot">    
+                              	  	<ui:include src="/views/forms/entrepotForms.xhtml"></ui:include>
+								</h:form>
+   						</div>
+   					</div>
+   				</div>
+   			</div>
+   		</div>
+   			
+        <div class="Container50 Responsive100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect  ">
+                    <div class="Container100 Responsive100">
+                        <div class="ContainerIndent">
+                        	<h:form id="datasEntrepot"> 
+                            <h2 class="BigTopic">Vue du stocke</h2>
+         					<ui:include src="/views/dataTables/entrepotDatas.xhtml"></ui:include>
+         					</h:form>
+  						</div>
+  					</div>
+  				</div>
+  			</div>
+  		</div> 		
+  
+   </ui:define>
+   
+</ui:composition>

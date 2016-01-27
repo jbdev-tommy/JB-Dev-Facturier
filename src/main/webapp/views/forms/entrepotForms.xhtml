@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<script type="text/javascript">
+		function handleDrop(event, ui) {
+			var droppedCar = ui.draggable;
+
+			droppedCar.fadeOut('fast');
+		}
+	</script>
+
+	<div class="Container50 Responsive50">
+		<div class="ContainerIndent">
+			<h3>1 - Liste des commandes</h3>
+			<ui:include src="/views/ui/listCommandes.xhtml"></ui:include>
+		</div>
+	</div>
+	<div class="Container50 Responsive50">
+		<div class="ContainerIndent">
+			<h3>2 - Liste des entrepots</h3>
+			<ui:include src="/views/ui/listEntrepots.xhtml"></ui:include>
+		</div>
+	</div>
+	<div class="EmptyBox10"></div>
+	<p:fieldset id="availableCarsField" legend="3 - Produits disponibles">
+		<p:dataGrid id="availableCars" var="car"
+			value="#{commandesBean.commande.contients}" columns="3">
+			<p:panel id="pnl" header="#{car.produits.nom}"
+				style="text-align:center">
+				<h:panelGrid columns="1" style="width:100%">
+					<h:outputText value="#{car.produits.description}"></h:outputText>
+				</h:panelGrid>
+			</p:panel>
+
+			<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar"
+				stack=".ui-panel" />
+		</p:dataGrid>
+	</p:fieldset>
+
+	<p:fieldset id="selectedCars" legend="Produits selectionnés"
+		style="margin-top:20px">
+		<p:outputPanel id="dropArea">
+			<h:outputText value="!!!Glissé ici!!!"
+				rendered="#{empty entrepotsBean.entrepot.produitses}"
+				style="font-size:24px;" />
+			<p:dataTable id="selectedCarsTable" var="car"
+				value="#{entrepotsBean.entrepot.produitses}"
+				rendered="#{not empty entrepotsBean.entrepot.produitses}">
+				<p:column headerText="Nom">
+					<h:outputText value="#{car.nom}" />
+				</p:column>
+				<p:column headerText="Prix HT">
+					<h:outputText value="#{car.prixHt}" />
+				</p:column>
+				<p:column headerText="=Quantité">
+					<h:outputText value="#{car.stock}" />
+				</p:column>
+			</p:dataTable>
+		</p:outputPanel>
+	</p:fieldset>
+
+	<p:droppable for="selectedCars" tolerance="touch"
+		activeStyleClass="ui-state-highlight" datasource="availableCars"
+		onDrop="handleDrop">
+		<p:ajax listener="#{entrepotsBean.onProduitDrop}"
+			update="dropArea availableCars" />
+	</p:droppable>
+
+	<p:commandButton process="@form" value="Enregistrer"
+		action="#{entrepotsBean.update}" icon="fa fa-key"
+		style="margin-top : 5px;"
+		styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+		update="@(.ui-datatable)" />
+</ui:composition>

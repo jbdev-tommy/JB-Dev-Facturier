@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <div class="EmptyBox10"></div>
+     <div class="Fright Wid100" >
+    	 	<h:commandLink>
+                <p:graphicImage library="rio-layout" name="images/exel.png" width="30"/>
+                <p:dataExporter type="xls" target="#{tab}" fileName="clients" />
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <p:graphicImage library="rio-layout" name="images/pdf.png" width="30"/>
+                <p:dataExporter type="pdf" target="#{tab}" fileName="clients"/>
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <p:graphicImage library="rio-layout" name="images/csv.png" width="30"/>
+                <p:dataExporter type="csv" target="#{tab}" fileName="clients" />
+            </h:commandLink>
+        </div>	
+        <div class="EmptyBox10"></div>
+        
+</ui:composition>

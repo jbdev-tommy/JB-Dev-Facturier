@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+  		
+  			    <h2 class="CardTopic Responsive"><i class="icon-tack Fs20 MarRight10"></i> Gestion des tâches	 
+  	   			    <p:commandButton id="todoMenu" type="button" icon="fa fa-plus Gray Fs20"  onclick="PF('todoOverlay').show();" styleClass="Fright GrayButton" style="margin-top:-30px !important;" global="false"/>
+               			
+               				<p:overlayPanel  widgetVar="todoOverlay" id="addTodoPanel"  hideEffect="fade" dynamic="false" >
+               					<div class="Card ShadowEffect ">
+               						<div class="ContainerIndent">
+               							<div class="Container100 Responsive100">
+               							<ui:include src="/views/forms/todoForms.xhtml"/>
+               							</div>
+               						</div>             
+               					</div>
+               				</p:overlayPanel>
+               			
+  					</h2>
+  					
+  		<h:form id="listTodo">
+                         <div class="EmptyBox10"></div>
+                         
+                      	 <p:dataTable id="listSelectTodo" value="#{todoListBean.list}" reflow="true" var="td" rows="3" selectionMode="single" selection="#{todoBean.todo}" rowKey="#{td.numTodo}"  paginator="true" paginatorAlwaysVisible="false">
+
+  				  				 <p:column headerText="Validé ? ">
+              							<p:selectBooleanCheckbox styleClass="Fs18 TextAlCenter" id="booleanDo"  value="#{td.do_}" disabled="true" />
+             			 	    </p:column>
+             			 	   
+          					 	  <p:column headerText="Tâche">
+          					 	   		<h:outputText styleClass="Fs18 " value="#{td.todo}"/>
+          					 	   </p:column>
+        					  	   
+        					  	   <p:column headerText="Date de début">
+      							   		<h:outputText styleClass="Fs18" value="  #{td.dateDebutTodo}"/>
+          					  	   </p:column>
+          					  	 
+          					  	   <p:column headerText="Date de Fin">
+          					  	   		<h:outputText styleClass="Fs18" value="  #{td.dateFinTodo}"/>
+          					   	 	</p:column>
+
+               			</p:dataTable>
+               			
+                       <div class="CardFooter">
+	                    	<p:commandButton icon="fa fa-close Fs16 White" styleClass="Fright PinkButton TexAlCenter" actionListener="#{todoBean.delete}" process="@form" update="@(.ui-datatable)" />
+   	                    	<p:commandButton icon="fa fa-check  Fs16 White" styleClass="Fright GreenButton TexAlCenter" actionListener="#{todoBean.update}" process="@form" update="@(.ui-datatable)" />
+   	                    	 <p:commandButton icon="fa fa-minus Fs16 White" styleClass="Fright GreenButton TexAlCenter" actionListener="#{todoBean.unCheck}" process="@form" update="@(.ui-datatable)" />
+			           </div>
+ 		                   
+         </h:form>                 
+</ui:composition>

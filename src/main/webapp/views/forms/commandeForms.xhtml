@@ -1,0 +1,127 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<script type="text/javascript">
+		function handleDrop(event, ui) {
+			var droppedCar = ui.draggable;
+
+			droppedCar.fadeOut('fast');
+		}
+	</script>
+
+	<h:form id="carForm">
+		<p:growl id="message" showDetail="true" />
+		<div class="Container30 Responsive100">
+			<div class="ContainerIndent">
+				<ui:include src="/views/ui/listFournisseurs.xhtml"></ui:include>
+			</div>
+		</div>
+		<div class="EmptyBox10"></div>
+		<p:fieldset id="availableCarsField" legend="Produits disponibles">
+			<p:dataGrid id="availableCars" var="car"
+				value="#{produitsBean.produitsFournisseurs}" columns="3">
+				<p:panel id="pnl" header="#{car.nom}" style="text-align:center">
+					<h:panelGrid columns="1" style="width:100%">
+						<h:outputText value="#{car.description}"></h:outputText>
+					</h:panelGrid>
+				</p:panel>
+
+				<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar"
+					stack=".ui-panel" />
+			</p:dataGrid>
+		</p:fieldset>
+		<ui:include src="/views/ui/exportersData.xhtml">
+			<ui:param name="tab" value="selectedCarsTable" />
+		</ui:include>
+		<p:fieldset id="selectedCars" legend="Produits selectionnés"
+			style="margin-top:20px">
+			<p:outputPanel id="dropArea">
+				<h:outputText value="!!!Glissé ici!!!"
+					rendered="#{empty commandesBean.contients}" style="font-size:24px;" />
+
+				<p:dataTable id="selectedCarsTable" var="car"
+					value="#{commandesBean.contients}"
+					rendered="#{not empty commandesBean.produits}">
+					<p:column headerText="Nom">
+						<h:outputText value="#{car.produits.nom}" />
+					</p:column>
+					<p:column headerText="Quantite">
+						<h:outputText value="#{car.quantite}" />
+					</p:column>
+					<p:column headerText="Prix HT">
+						<h:outputText value="#{car.produits.prixHt}" />
+					</p:column>
+					<p:column headerText="Total HT">
+						<h:outputText value="#{car.produits.prixHt * car.quantite}" />
+					</p:column>
+					<p:column headerText="TVA">
+						<h:outputText
+							value="#{car.produits.prixHt * car.quantite * ((car.tva.taux)/100)}" />
+					</p:column>
+					<p:column headerText="Total TTC">
+						<h:outputText
+							value="#{car.produits.prixHt * car.quantite* (1+((car.tva.taux)/100))}" />
+					</p:column>
+				</p:dataTable>
+			</p:outputPanel>
+		</p:fieldset>
+
+		<p:droppable for="selectedCars" tolerance="touch"
+			activeStyleClass="ui-state-highlight" datasource="availableCars"
+			onDrop="handleDrop">
+			<p:ajax listener="#{commandesBean.onProduitDrop}"
+				update="dropArea availableCars" />
+		</p:droppable>
+		<div class="EmptyBox20"></div>
+      <div class="Container50 Responsive50">
+        <div class="ContainerIndent"> 
+				<h3>Date de commande</h3>
+				<div class="EmptyBox10"></div>
+				<p:calendar id="calendarCmd" pattern="dd/MM/yyyy" mask="true"
+					placeholder="Date de commande"
+					value="#{commandesBean.commande.dateCommande}" effect="fold"
+					mode="inline" />
+				
+			</div>
+		</div>
+	<div class="Container50 Responsive50">
+        <div class="ContainerIndent"> 
+		<h3>Exporter la commande</h3>
+		<h:commandLink>
+			<p:graphicImage library="rio-layout" name="images/pdf.png" width="50" />
+			<p:dataExporter type="pdf" target="selectedCarsTable"
+				fileName="commande" preProcessor="#{commandesBean.preProcessPDF}" />
+		</h:commandLink>
+		<div class="EmptyBox10"></div>
+		<p:selectBooleanCheckbox value="#{commandesBean.commande.valide}"
+					itemLabel="Commande deja recut" styleClass="Fleft" required="true" />
+		</div>
+		</div>
+		<p:dialog id="dialogCommande" header="Quantité"
+			widgetVar="quantiteDialog" showEffect="slide" hideEffect="explode"
+			resizable="false">
+			<h3>TVA à appliqué sur le produit</h3>
+			<div class="EmptyBox10"></div>
+			<ui:include src="/views/ui/listTva.xhtml"></ui:include>
+			<div class="EmptyBox10"></div>
+			<p:inputText styleClass="Wid90" placeholder="Nom ou Entreprise"
+				value="#{commandesBean.quantite}" required="true"
+				requiredMessage="Une quantité est nécassaire" />
+			<p:commandButton process="@form" value="Valider"
+				action="#{commandesBean.addProduit}"
+				styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+				update="@(.ui-datatable)" />
+		</p:dialog>
+		<div class="EmptyBox20"></div>
+		<p:commandButton process="@form" value="Enregistrer"
+			action="#{commandesBean.create}" icon="fa fa-key"
+			style="margin-top : 5px;"
+			styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+			update="@(.ui-datatable)" />
+
+	</h:form>
+
+</ui:composition>

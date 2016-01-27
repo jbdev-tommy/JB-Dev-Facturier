@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui">
+    
+     <p:selectOneListbox id="listFournisseur" cahe="true" value="#{fournisseursBean.fournisseur}" converter="fournisseursConverter" var="four" filter="true" filterMatchMode="contains" row="6" styleClass="Wid90">
+            <f:selectItems value="#{fournisseursListBean.list}" var="fournisseur" itemLabel="#{fournisseur.entreprisesByNumSiret.nom}" itemValue="#{fournisseur}" >
+            
+            </f:selectItems>
+           	
+            <p:column>
+                <h:outputText value = "#{four.entreprisesByNumSiret.nom}"/>
+            </p:column>
+			<p:ajax  event="click" listener="#{produitsBean.listener}" update="@(.ui-datatable) @(.ui-datagrid)"></p:ajax>
+ 	</p:selectOneListbox>
+
+</ui:composition>

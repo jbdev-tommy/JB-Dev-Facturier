@@ -1,0 +1,104 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<h:form id="dataAchat">
+		<!-- enctype="multipart/form-data" -->
+		<ui:include src="/views/ui/exportersData.xhtml">
+			<ui:param name="tab" value="achatsDataTable" />
+		</ui:include>
+		<p:growl id="message" showDetail="true"></p:growl>
+		<p:dataTable id="achatsDataTable" widgetVar="achatsTable" var="achats"
+			reflow="true" value="#{achatsListBean.list}" rows="10"
+			paginator="true" paginatorAlwaysVisible="false"
+			rowKey="#{achats.achat.numAchat}">
+
+			<p:column headerText="Date d'achats" sortBy="#{achats.dateAchats}">
+				<p:outputLabel value="#{achats.dateAchats}" />
+				<br />
+			</p:column>
+			<p:column headerText="Fournisseurs"
+				sortBy="#{achats.commandes.fournisseurs.entreprisesByNumSiret.nom}">
+				<p:outputLabel
+					value="#{achats.commandes.fournisseurs.entreprisesByNumSiret.nom}"></p:outputLabel>
+				<br />
+			</p:column>
+			<p:column headerText="Commande"
+				sortBy="#{achats.commandes.numCommade}">
+				N° <p:outputLabel value="#{achats.commandes.numCommade}"/> le
+				<p:outputLabel value="#{achats.commandes.dateCommande}"/>
+				<p:rowToggler />
+			</p:column>
+			<p:column headerText="Type de paiment" styleClass="Fs16">
+				<h:outputText value="#{achats.typeDePaiment.nom}" />
+			</p:column>
+			<p:column headerText="Total HT" styleClass="Fs16">
+				<h:outputText value="#{achats.accomte} €" />
+			</p:column>
+
+			<p:rowExpansion>
+				<ui:include src="/views/ui/exportersData.xhtml">
+					<ui:param name="tab" value="produitsCmd" />
+				</ui:include>
+				<p:dataTable id="produitsCmd" var="ct"
+					value="#{achats.commandes.contients}" reflow="true" rows="10"
+					rowKey="#{ct.produits.nom}" paginator="true"
+					paginatorAlwaysVisible="false">
+
+					<p:column headerText="Nom">
+						<h:outputText value="#{ct.produits.nom}" />
+					</p:column>
+					<p:column headerText="Quantite">
+						<h:outputText value="#{ct.quantite}" />
+					</p:column>
+					<p:column headerText="Prix HT">
+						<h:outputText value="#{ct.produits.prixHt}" />
+					</p:column>
+					<p:column headerText="Total HT">
+						<h:outputText value="#{ct.produits.prixHt * car.quantite}" />
+					</p:column>
+					<p:column headerText="TVA  #{car.tva.taux} %">
+						<h:outputText
+							value="#{ct.produits.prixHt * ct.quantite * (1-((ct.tva.taux)/100))}" />
+					</p:column>
+					<p:column headerText="Total TTC">
+						<h:outputText
+							value="#{ct.produits.prixHt * ct.quantite* (1+((ct.tva.taux)/100))}" />
+					</p:column>
+				</p:dataTable>
+			</p:rowExpansion>
+		</p:dataTable>
+		<p:outputPanel id="prix">
+			<div class="EmptyBox10"></div>
+			<div class="Container50 Responsive100 ">
+
+				<div class="ContainerIndent RedBack Fs18 TexAlLeft">
+					<span class="Wid90  White ">TOTAL HT (€) = </span>
+					<h:outputText styleClass="Wid90  White " id="prixHt"
+						value="#{achatsBean.sommeHt}" >
+						<f:convertNumber pattern="#0.00" local="pt_FR"/>
+						</h:outputText>
+				</div>
+				<div class="ContainerIndent RedBack Fs18 TexAlLeft">
+					<span class="Wid90  White ">TOTAL TTC (€) = </span>
+					<h:outputText styleClass="Wid90  White " id="prixTtc"
+						value="#{achatsBean.sommeTtc}" >
+						<f:convertNumber pattern="#0.00" local="pt_FR"/>
+						</h:outputText>
+				</div>
+				<div class="ContainerIndent RedBack Fs18 TexAlLeft">
+					<span class="Wid90  White ">TVA cummulé (€) = </span>
+					<h:outputText styleClass="Wid90  White " id="totalTva"
+						value="#{achatsBean.totalTva}" >
+						<f:convertNumber pattern="#0.00" local="pt_FR"/>
+						</h:outputText>
+				</div>
+			</div>
+		</p:outputPanel>
+	</h:form>
+
+</ui:composition>

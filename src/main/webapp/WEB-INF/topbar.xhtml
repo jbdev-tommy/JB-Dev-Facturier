@@ -1,0 +1,37 @@
+<ui:composition 
+
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+    
+    
+    <div id="layout-topbar">
+    	<div id="logo" class="Fleft">
+        	<a href="http://www.jbdev.fr"><h:graphicImage name="images/logoPerso.svg" styleClass="Fleft" library="rio-layout" /></a>
+            <a id="mobile-menu-button" class="Fright ShowOnMobile ripplelink Unselectable ShadowEffect"><i class="icon-add186"></i></a>
+        </div>
+     
+       
+        <a class="ripplelink WhiteBlue Fright ShowOnMobile" id="show-top-menu"><i class="icon-show8"></i></a>
+        
+        <ul id="top-menu" class="ShowOnDesktop">
+       		<li>
+       		 	<h:outputScript  name="http://www.dreamad.org/aff_pub2.php?ident=410"></h:outputScript>
+        	</li>
+            <li>
+        	    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+					<input type="hidden" name="cmd" value="_s-xclick"/>
+					<input type="hidden" name="hosted_button_id" value="5MZM4T4SPXW8S"/>
+					<input type="image" src="https://www.paypalobjects.com/fr_FR/FR/i/btn/btn_donateCC_LG.gif"  name="submit" alt="PayPal - la solution de paiement en ligne la plus simple et la plus sécurisée !"/>
+					<img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1"/>
+				</form>
+     
+        	</li>
+           
+        </ul>
+      
+    </div>
+    
+</ui:composition>

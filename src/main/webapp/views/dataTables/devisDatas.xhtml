@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<h:form id="dataDevis">
+		<p:growl id="message" showDetail="true" />
+		<p:panelGrid id="clientDevisDataPanel" columns="1" layout="grid"
+			style="border:0px !important; background:none;"
+			styleClass="FormContent">
+			<p:dataTable id="dataTableDevis" var="dev" cache="true"
+				value="#{devisListBean.list}" selectionMode="single"
+				selection="#{devisBean.devis}" rowKey="#{dev.numDevis}"
+				paginator="true" paginatorAlwaysVisible="false" reflow="true">
+
+				<p:column headerText="Numéro">
+					<h:outputText value="#{dev.numero}" styleClass="Fs20 FontBold"
+						sortBy="#{dev.numDevis}" />
+				</p:column>
+				<p:column headerText="Date du devis" sortBy="#{dev.dateDevis}">
+					<h:outputText value="#{dev.dateDevis}" />
+				</p:column>
+				<p:column headerText="Client" sortBy="#{dev.clients.personnes.nom}">
+					<h:outputText value="#{dev.clients.personnes.nom}" />
+					<h:outputText value="#{dev.clients.personnes.prenom}" />
+				</p:column>
+
+				<p:column headerText="Transformé en facture">
+					<p:selectBooleanCheckbox styleClass="TexAlCenter"
+						value="#{not empty dev.factureses}" disabled="true"></p:selectBooleanCheckbox>
+				</p:column>
+			</p:dataTable>
+		</p:panelGrid>
+
+		<div class="Container100 Responsive100 ">
+			<div class="ContainerIndent ">
+				<p:commandButton id="btn_view" value="Apercu"
+					onclick="form.target='_blank'" actionListener="#{devisBean.view}"
+					styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+					ajax="false" />
+
+				<div class="EmptyBox10"></div>
+				<p:commandButton process="@form" id="btn_toFact"
+					value="Transformer en facture"
+					actionListener="#{facturesBean.viewDevis}"
+					styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+					update="@(.ui-datatable) @widgetVar(devisToFactureDialog)" />
+				<div class="EmptyBox10"></div>
+				<p:commandButton process="@form" id="btn_del" value="Delete"
+					actionListener="#{devisBean.delete}"
+					styleClass="RedButton Wid100 Fs18 White RaisedButton"
+					update="@(.ui-datatable) :dataDevisNF:@(.ui-datatable)" />
+			</div>
+		</div>
+
+		<ui:include src="/views/dialogs/devisTofactureDialog.xhtml"></ui:include>
+
+	</h:form>
+</ui:composition>

@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/template.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+         
+    <ui:define name="content">	
+    	
+		  <div class="Container40 Responsive100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect  ">
+  				    <div class="Container100 Responsive100">
+                        <div class="ContainerIndent">
+                            <h2 class="BigTopic">Ajouter un client</h2>
+                              	<h:form id="addClient">    
+                              	    <p:growl id="message"  showDetail="true"  ></p:growl>
+   									<ui:include src="/views/forms/clientsForms.xhtml">
+   										<ui:param name="update" value="@(.ui-datatable), message, @(:input)"/>
+   									</ui:include>
+								</h:form>
+   						</div>
+   					</div>
+   				</div>
+   			</div>
+   		</div>
+   			
+        <div class="Container60 Responsive100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect  ">
+                    <div class="Container100 Responsive100">
+                        <div class="ContainerIndent">
+                            <h2 class="BigTopic">Liste de vos clients</h2>
+         					<ui:include src="/views/dataTables/clientsDatas.xhtml"></ui:include>
+  						</div>
+  					</div>
+  				</div>
+  			</div>
+  		</div> 		
+  
+   </ui:define>
+   
+</ui:composition>

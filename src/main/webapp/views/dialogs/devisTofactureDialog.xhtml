@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+	<p:dialog header="Trasformer" widgetVar="devisToFactureDialog"
+		showEffect="bounce" hideEffect="explode" resizable="false">
+		<p:outputPanel id="dialogDevisToFacture">
+			<h2>Devis numéro #{devisBean.devis.numero}</h2>
+			<div class="EmptyBox10"></div>
+			<div class="Container100 TurquoiseBack">
+				<div class="ContainerIndent">
+					<h:outputText value="#{devisBean.devis.clients.personnes.nom}"
+						styleClass="Fs20 FontBold" />
+					<br />
+				</div>
+			</div>
+			<h:outputText value="#{devisBean.devis.clients.personnes.nom}"
+				styleClass="Fs17" />
+			<br />
+			<h:outputText value="#{devisBean.devis.clients.email}"
+				styleClass="Fs17" />
+			<br />
+
+			<div class="EmptyBox20"></div>
+			<h2>Mentions fin de facture</h2>
+			<p:editor id="editor" widgetVar="editorWidget"
+				value="#{facturesBean.facture.mentions}" />
+			<div class="EmptyBox20"></div>
+
+		</p:outputPanel>
+		<div class="EmptyBox10"></div>
+		<p:commandButton id="btn_view2" value="Apercu"
+			onclick="form.target='_blank'"
+			actionListener="#{facturesBean.apercu}"
+			styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+			process="@form" ajax="false" />
+		<div class="EmptyBox10"></div>
+		<p:commandButton process="@form" value="Enregistrer"
+			action="#{facturesBean.create}"
+			styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+			update="@(.ui-datatable), @(:input)" />
+	</p:dialog>
+
+</ui:composition>

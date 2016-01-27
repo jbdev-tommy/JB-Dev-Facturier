@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table-filter match-name="ACHATS" match-catalog="facturierDeux"></table-filter>
+	<table-filter match-name="ADRESSES" match-catalog="facturierDeux"></table-filter>
+	<table-filter match-name="CATEGORIES"
+		match-catalog="facturierDeux">
+	</table-filter>
+	<table-filter match-name="CLIENTS" match-catalog="facturierDeux"></table-filter>
+	<table-filter match-name="COMMANDES"
+		match-catalog="facturierDeux">
+	</table-filter>
+	<table-filter match-name="CONTIENT" match-catalog="facturierDeux"></table-filter>
+	<table-filter match-name="DEVIS" match-catalog="facturierDeux"></table-filter>
+	<table-filter match-name="DEVIS_PRODUITS"
+		match-catalog="facturierDeux">
+	</table-filter>
+	<table-filter match-name="ENTREPOTS"
+		match-catalog="facturierDeux">
+	</table-filter>
+	<table-filter match-name="ENTREPRISES"
+		match-catalog="facturierDeux">
+	</table-filter>
+	<table-filter match-name="EXERCICECOMPTABLE"
+		match-catalog="facturierDeux">
+	</table-filter>
+	<table-filter match-name="FACTURES" match-catalog="facturierDeux"></table-filter>
+	<table-filter match-name="FORMES_JURIDIQUES"
+		match-catalog="facturierDeux">
+	</table-filter>
+	<table-filter match-name="FOURNISSEURS"
+		match-catalog="facturierDeux">
+	</table-filter>
+	<table-filter match-name="NON_SALARIER"
+		match-catalog="facturierDeux">
+	</table-filter>
+	<table-filter match-name="PERSONNES"
+		match-catalog="facturierDeux">
+	</table-filter>
+	<table-filter match-name="PRODUITS" match-catalog="facturierDeux"></table-filter>
+	<table-filter match-name="REGIMESOCIAL"
+		match-catalog="facturierDeux">
+	</table-filter>
+	<table-filter match-name="SALARIE" match-catalog="facturierDeux"></table-filter>
+	<table-filter match-name="TAUX_COTISATIONS"
+		match-catalog="facturierDeux">
+	</table-filter>
+	<table-filter match-name="TODO" match-catalog="facturierDeux"></table-filter>
+	<table-filter match-name="TVA" match-catalog="facturierDeux"></table-filter>
+	<table-filter match-name="TYPE_DE_PAIMENT"
+		match-catalog="facturierDeux">
+	</table-filter>
+	<table-filter match-name="UTILISATEURS"
+		match-catalog="facturierDeux">
+	</table-filter>
+	<table-filter match-name="VENTE" match-catalog="facturierDeux"></table-filter>
+</hibernate-reverse-engineering>

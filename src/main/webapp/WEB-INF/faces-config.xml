@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+
+ 	<application>
+ 		<el-resolver>
+    		 org.springframework.web.jsf.el.SpringBeanFacesELResolver
+		</el-resolver>
+		
+  	</application>
+  	
+
+  	 <!-- navigation-rule for login.xhtml -->
+    <navigation-rule>
+    	<display-name>/login.xhtml</display-name>
+        <from-view-id>/login.xhtml</from-view-id>
+        <!-- navigation-case for method login() -->
+        <navigation-case>
+            <from-action>#{myLoginBean.login}</from-action>
+            <from-outcome>correct</from-outcome>
+            <to-view-id>/views/secure/csrf_home.xhtml</to-view-id>
+        </navigation-case>
+        <!-- navigation-case for method login() -->
+        <navigation-case>
+            <from-action>#{myLoginBean.login}</from-action>
+            <from-outcome>incorrect</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+    	<display-name>signIn.xhtml</display-name>
+    	<from-view-id>/signIn.xhtml</from-view-id>
+    	<navigation-case>
+    		<to-view-id>/login.xhtml</to-view-id>
+    	</navigation-case>
+    </navigation-rule>
+    
+ </faces-config> 
+
