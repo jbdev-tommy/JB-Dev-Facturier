@@ -103,7 +103,7 @@ public class ClientsBean implements GeneralBean<Clients> {
 	// Le client selectionné
 	this.client = (Clients) event.getObject();
 	this.personne = client.getPersonnes();
-
+	System.out.println(" Client : " + client.getEmail());
 	// Affiche le dialog
 	final RequestContext context = RequestContext.getCurrentInstance();
 	context.execute("PF('clientDialog').show();");

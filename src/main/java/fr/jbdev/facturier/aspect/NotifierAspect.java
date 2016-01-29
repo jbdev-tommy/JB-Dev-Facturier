@@ -11,7 +11,6 @@ import org.aspectj.lang.annotation.Aspect;
 import fr.jbdev.domaine.Todo;
 import fr.jbdev.domaine.Utilisateurs;
 import fr.jbdev.facturier.excepetions.ObjectNullException;
-import fr.jbdev.facturier.excepetions.UserIsNotExist;
 import fr.jbdev.facturier.notifier.message.ConsolMessage;
 import fr.jbdev.facturier.notifier.message.MailSenderService;
 import fr.jbdev.facturier.notifier.message.MyFacesMessages;

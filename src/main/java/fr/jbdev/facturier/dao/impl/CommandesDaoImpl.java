@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.jbdev.domaine.Commandes;
 import fr.jbdev.domaine.Contient;
+import fr.jbdev.domaine.Produits;
 import fr.jbdev.facturier.dao.CommandesDao;
 import fr.jbdev.facturier.dao.generic.impl.BaseDaoImpl;
 
@@ -34,5 +35,5 @@ public class CommandesDaoImpl extends BaseDaoImpl<Commandes, Integer> implements
 	currentSession().flush();
 	currentSession().clear();
     }
-
+  
 }

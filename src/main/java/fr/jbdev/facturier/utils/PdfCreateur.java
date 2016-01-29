@@ -12,12 +12,14 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import fr.jbdev.domaine.Devis;
 import fr.jbdev.domaine.DevisProduits;
 import fr.jbdev.domaine.Factures;
@@ -28,7 +30,8 @@ public class PdfCreateur {
     private Utilisateurs user;
     private Devis devis;
     private Factures facture;
-
+    private String model;
+   
     public PdfCreateur(Utilisateurs user, Devis devis) {
 	this.devis = devis;
 	this.user = user;
@@ -76,10 +79,18 @@ public class PdfCreateur {
 	try {
 	    // Jasper Report
 	    ClassLoader classLoader = getClass().getClassLoader();
-	    JasperReport report = (JasperReport) JRLoader
-		    .loadObject(classLoader
-			    .getResource("jasperReport/Simple_Blue_Table_Based.jasper"));
-	    JasperPrint jasperPrint = JasperFillManager.fillReport(report,
+	    
+	    System.out.println(" Model : " + this.model);
+	    System.out.println(" Path : " + classLoader
+		    .getResource("jasperReport/"+this.model+".jasper"));
+	
+	    JasperDesign jasperDesign = JRXmlLoader.load(classLoader
+		    .getResource("jasperReport/"+this.model+".jrxml").getFile());
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+//	    JasperReport report = (JasperReport) JRLoader
+//		    .loadObject(classLoader
+//			    .getResource("jasperReport/"+this.model+".jasper"));
+	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,
 		    model, new JRBeanCollectionDataSource(list));
 	    return JasperExportManager.exportReportToPdf(jasperPrint);
 
@@ -88,5 +99,13 @@ public class PdfCreateur {
 	    e.printStackTrace();
 	}
 	return null;
+    }
+
+    public String getModel() {
+	return model;
+    }
+
+    public void setModel(String model) {
+	this.model = model;
     }
 }

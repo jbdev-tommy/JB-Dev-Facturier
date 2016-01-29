@@ -7,15 +7,13 @@
     <h:form>
 		<p:growl id="message"  showDetail="true"  ></p:growl>
 		<p:autoComplete id="searchList" placeholder="Nom" value="#{searchBean.select}" completeMethod="#{searchBean.completeText}">
-			 <p:ajax event="itemSelect" listener="#{searchBean. getObjectSelect}" update="@form"></p:ajax>
+			 <p:ajax event="itemSelect" listener="#{searchBean.getObjectSelect}" update="@form"></p:ajax>
 		</p:autoComplete>
    		
    		<ui:include src="/views/dialogs/produitsDialog.xhtml">
    				<ui:param name="action" value="user" />
    		</ui:include>
-   		<ui:include src="/views/dialogs/fournisseursDialog.xhtml">
-   				
-   		</ui:include>
+   		<ui:include src="/views/dialogs/fournisseursDialog.xhtml"/>
    		<ui:include src="/views/dialogs/clientsDialog.xhtml"/>
       
       </h:form>			

@@ -38,6 +38,8 @@ public class Entreprises implements java.io.Serializable {
     private String numAssurance;
     private String codeApe;
     private String solgan;
+    private String modelPdf;
+    
     private Date dateDeCreation;
     private Set<Clients> clientses = new HashSet<Clients>(0);
     private Set<Exercicecomptable> exercicecomptables = new HashSet<Exercicecomptable>(
@@ -188,6 +190,15 @@ public class Entreprises implements java.io.Serializable {
 
     public void setSolgan(String solgan) {
 	this.solgan = solgan;
+    }
+    
+    @Column(name = "ModelPdf", length = 25)
+    public String getModelPdf() {
+	return modelPdf;
+    }
+
+    public void setModelPdf(String modelPdf) {
+	this.modelPdf = modelPdf;
     }
 
     @Temporal(TemporalType.DATE)

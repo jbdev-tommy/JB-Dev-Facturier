@@ -17,6 +17,7 @@ import org.primefaces.event.SelectEvent;
 
 import fr.jbdev.domaine.Categories;
 import fr.jbdev.domaine.Contient;
+import fr.jbdev.domaine.Entrepots;
 import fr.jbdev.domaine.Produits;
 import fr.jbdev.facturier.controller.GeneralBean;
 import fr.jbdev.facturier.controller.MyHttpSession;
@@ -73,6 +74,7 @@ public class ProduitsBean implements GeneralBean<Produits> {
     public void create() {
 	if (produit != null) {
 	    produit.setCategories(categorieBean.getCat());
+	    produit.setStock(new Float(0));
 	    if (fournisseur.getFournisseur().getNumFournisseur() != null) {
 
 		// Persistance
@@ -245,6 +247,7 @@ public class ProduitsBean implements GeneralBean<Produits> {
     }
 
     public void listenerCmd() {
+
 	setProduitsCommande(new LinkedList<Produits>());
 	for (Contient cat : commandeBean.getCommande().getContients()) {
 	    produitsCommande.add(cat.getProduits());

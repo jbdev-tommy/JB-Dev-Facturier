@@ -65,7 +65,7 @@ public class SearchBean {
 
 	for (Object obj : bigList) {
 	    if (obj instanceof Fournisseurs) {
-
+		System.out.println("Class : " + obj.getClass().getCanonicalName());
 		bigMap.put(((Fournisseurs) obj).getEntreprisesByNumSiret()
 			.getNom(), obj);
 	    } else if (obj instanceof Clients) {
@@ -100,7 +100,8 @@ public class SearchBean {
      *            event.getObject() )
      */
     public void getObjectSelect(final SelectEvent event) { // Listener
-	final Object obj = bigMap.get(event.getObject());
+	System.out.println(" Object selected : " + event.getObject().getClass().getCanonicalName());
+	final Object obj = bigMap.get((String) event.getObject());
 	final RequestContext context = RequestContext.getCurrentInstance();
 
 	if (obj instanceof Clients) {

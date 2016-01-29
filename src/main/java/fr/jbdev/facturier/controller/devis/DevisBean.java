@@ -175,6 +175,8 @@ public class DevisBean implements GeneralBean<Devis>, Serializable {
 	}
 
 	PdfCreateur pdf = new PdfCreateur(MyHttpSession.getUser(), devis);
+	pdf.setModel(user.getEntreprise().getModelPdf());
+	
 	// Streaming pdf
 	final HttpSession session = MyHttpSession.getSession();
 	session.setAttribute("reportBytes", pdf.create());

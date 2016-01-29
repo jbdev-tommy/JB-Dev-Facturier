@@ -83,7 +83,7 @@ public class FormesJuridiques implements java.io.Serializable {
 	this.description = description;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "formesJuridiques")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "formesJuridiques")
     public Set<Entreprises> getEntrepriseses() {
 	return this.entrepriseses;
     }
@@ -92,7 +92,7 @@ public class FormesJuridiques implements java.io.Serializable {
 	this.entrepriseses = entrepriseses;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "NON_SALARIER", catalog = "facturierDeux", joinColumns = { @JoinColumn(name = "NumForme", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "NumRegime", nullable = false, updatable = false) })
     public Set<Regimesocial> getRegimesocials() {
 	return this.regimesocials;
@@ -102,7 +102,7 @@ public class FormesJuridiques implements java.io.Serializable {
 	this.regimesocials = regimesocials;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "SALARIE", catalog = "facturierDeux", joinColumns = { @JoinColumn(name = "NumForme", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "NumRegime", nullable = false, updatable = false) })
     public Set<Regimesocial> getRegimesocials_1() {
 	return this.regimesocials_1;

@@ -22,6 +22,7 @@ import fr.jbdev.facturier.controller.GeneralBean;
 import fr.jbdev.facturier.controller.MyHttpSession;
 import fr.jbdev.facturier.controller.clients.ClientsListBean;
 import fr.jbdev.facturier.controller.devis.DevisBean;
+import fr.jbdev.facturier.controller.user.UserDetail;
 import fr.jbdev.facturier.excepetions.ObjectNullException;
 import fr.jbdev.facturier.utils.PdfCreateur;
 
@@ -34,6 +35,9 @@ public class FactureBean implements GeneralBean<Factures>, Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    @ManagedProperty(value = "#{userDetail}")
+    private UserDetail user;
+    
     @ManagedProperty(value = "#{factureListBean}")
     private FactureListBean factureListBean;
 
@@ -124,6 +128,8 @@ public class FactureBean implements GeneralBean<Factures>, Serializable {
 	facture.setNumero(devisBean.getDevis().getNumero());
 
 	PdfCreateur pdf = new PdfCreateur(MyHttpSession.getUser(), facture);
+	pdf.setModel(user.getEntreprise().getModelPdf());
+	
 	// Streaming pdf
 	final HttpSession session = MyHttpSession.getSession();
 	session.setAttribute("reportBytes", pdf.create());
@@ -139,6 +145,8 @@ public class FactureBean implements GeneralBean<Factures>, Serializable {
     public void pdf() {
 
 	PdfCreateur pdf = new PdfCreateur(MyHttpSession.getUser(), facture);
+	pdf.setModel(user.getEntreprise().getModelPdf());
+	
 	// Streaming pdf
 	final HttpSession session = MyHttpSession.getSession();
 	session.setAttribute("reportBytes", pdf.create());
@@ -154,6 +162,14 @@ public class FactureBean implements GeneralBean<Factures>, Serializable {
     @Override
     public void close() {
 	facture = new Factures();
+    }
+
+    public UserDetail getUser() {
+        return user;
+    }
+
+    public void setUser(UserDetail user) {
+        this.user = user;
     }
 
     public FactureListBean getFactureListBean() {

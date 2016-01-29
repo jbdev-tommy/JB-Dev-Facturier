@@ -8,9 +8,8 @@
 	
       <h:form id="dataClients" ><!-- enctype="multipart/form-data" -->           
                        <p:growl id="message"  showDetail="true"  ></p:growl>
-        <p:dataTable id="dataTableClients" var="clients" cahe="true" value="#{clientsListBean.list}" selectionMode="single" selection="#{clientsBean.client}" reflow="true" rows="10" rowKey="#{clients.numClient}" paginator="true" paginatorAlwaysVisible="false">
-            <p:ajax event="rowSelect" listener="#{clientsBean.view}" update=":dataClients"/>
-   	
+        <p:dataTable id="dataTableClients" var="clients" cahe="true" value="#{clientsListBean.list}"  reflow="true" rows="10" rowKey="#{clients.numClient}" paginator="true" paginatorAlwaysVisible="false">
+        
             <p:column headerText="Nom">
                 <h:outputText value="#{clients.personnes.nom}" />
             </p:column>
@@ -34,6 +33,5 @@
 
         </p:dataTable>
 
-		<ui:include src="/views/dialogs/clientsDialog.xhtml"/>
- 	</h:form>
+	 	</h:form>
 </ui:composition>

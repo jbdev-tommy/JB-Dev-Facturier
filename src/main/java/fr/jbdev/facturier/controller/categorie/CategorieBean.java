@@ -3,7 +3,6 @@ package fr.jbdev.facturier.controller.categorie;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 import org.primefaces.context.RequestContext;
@@ -46,7 +45,7 @@ public class CategorieBean implements GeneralBean<Categories> {
 
     @Override
     public void delete() {
-	RequestContext context = RequestContext.getCurrentInstance();
+	//RequestContext context = RequestContext.getCurrentInstance();
 	boolean delete = false;
 
 	try {

@@ -59,7 +59,7 @@ public class UserDetail {
     }
 
     @SuppressWarnings("rawtypes")
-    public void updateUser() {
+    public void update() {
 	// Utilistaire pour la persistance
 	List<Entry<Class, Object>> list = new ArrayList<Entry<Class, Object>>();
 	Map<Class, Object> map = new HashMap<Class, Object>();

@@ -95,6 +95,7 @@ public class SignInBean implements Serializable {
 	    // Crypter mot de passe
 	    user.setPassWord(BCrypt.hashpw(user.getPassWord(), BCrypt.gensalt()));
 
+	    
 	    // L'utilisateur à la meme adresse que l'entreprise, inutile d'avoir
 	    // son adresse
 	    // ( pas de gestion de paye prévu )
@@ -106,6 +107,10 @@ public class SignInBean implements Serializable {
 	    // Récupérer la forme juridique
 	    entreprise.setFormesJuridiques(formesJuridiqueBean.getForme());
 
+	    //Model PDF par defaut
+	    entreprise.setModelPdf("report");
+	  
+	    
 	    if (uploaded.getFile() != null) {
 		// Logo
 		entreprise.setLogo(uploaded.getFile().getContents());

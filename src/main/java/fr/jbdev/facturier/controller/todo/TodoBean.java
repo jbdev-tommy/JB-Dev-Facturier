@@ -19,7 +19,6 @@ import fr.jbdev.domaine.Todo;
 import fr.jbdev.facturier.controller.GeneralBean;
 import fr.jbdev.facturier.controller.MyHttpSession;
 import fr.jbdev.facturier.excepetions.ObjectNullException;
-import fr.jbdev.facturier.utils.DateUtilitaire;
 
 @ViewScoped
 @ManagedBean(name = "todoBean", eager = false)

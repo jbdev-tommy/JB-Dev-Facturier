@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<p:ring id="basic" value="#{pdfBean.list}" var="img">
+		<p:graphicImage id="img" name="#{img}.png" library="jasper"  style="width : 200px; height : auto;"/>
+		<br />
+	
+		<p:commandButton update="@widgetVar(modelDialog)" icon="ui-icon-search" value="Voire" title="View"
+			oncomplete="PF('modelDialog').show();" >
+						<f:setPropertyActionListener value="#{img}" target="#{pdfBean.model}" />
+		</p:commandButton>
+
+	</p:ring>
+	
+	    <p:dialog header="Model selectionné" widgetVar="modelDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" >
+        <p:outputPanel id="modelDetail" style="text-align:center;" layout="block">
+            <p:panelGrid  columns="1" >
+               <p:graphicImage id="img2" name="#{pdfBean.model}.png" library="jasper"  />
+               <p:commandButton update="@form" icon="ui-icon-check" value="Selectionner" title="View" actionListener="#{pdfBean.selected}" />
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+</ui:composition>

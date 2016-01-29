@@ -1,26 +1,61 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="/WEB-INF/template.xhtml"
-                xmlns:p="http://primefaces.org/ui">
-         
-    <ui:define name="content">	
-    		
-		  <div class="Container100 Responsive100">
-            <div class="ContainerIndent">
-                <div class="Card ShadowEffect  ">
-  				    <div class="Container100 Responsive100">
-                        <div class="ContainerIndent">
-                            <h2 class="BigTopic">Mon compte</h2>
-   							<ui:include src="/views/forms/userForms.xhtml"></ui:include>
-   						</div>
-   					</div>
-   				</div>
-   			</div>
-   		</div>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/template.xhtml" xmlns:p="http://primefaces.org/ui">
 
-   	
-   </ui:define>
-   
+	<ui:define name="content">
+
+		<div class="Container100 Responsive100">
+			<div class="ContainerIndent">
+				<div class="Card ShadowEffect  ">
+					<div class="Container100 Responsive100">
+						<div class="ContainerIndent">
+							<h:form>
+							<h2 class="BigTopic">Mon compte</h2>
+							<div class="Container20 Responsive20">
+								<div class="ContainerIndent">
+									<h:graphicImage name="images/logo.png" library="rio-layout" />
+									<BR />
+								</div>
+							</div>
+							<div class="Container100 Responsive100">
+								<div class="ContainerIndent">
+									<ui:include src="/views/forms/userForms.xhtml"></ui:include>
+								</div>
+							</div>
+							</h:form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="Container100 Responsive100">
+			<div class="ContainerIndent">
+				<div class="Card ShadowEffect  ">
+					<div class="Container100 Responsive100">
+						<div class="ContainerIndent">
+							<h2 class="BigTopic">Models de PDF</h2>
+							<h:form>
+								<div class="Container50 Responsive100">
+									<div class="ContainerIndent">
+								<ui:include src="/views/ui/listModelsPdf.xhtml"></ui:include>
+									</div>
+									</div>
+									<div class="Container50 Responsive100">
+								<div class="ContainerIndent">
+								<p:graphicImage id="imgCurrent" name="#{pdfBean.model}.png" library="jasper" styleClass="Fright"/>
+								</div>
+								</div>
+							</h:form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</ui:define>
+
 </ui:composition>

@@ -20,28 +20,9 @@
 				<ui:include src="/views/ui/listFournisseurs.xhtml"></ui:include>
 			</div>
 		</div>
-		<div class="EmptyBox10"></div>
-		<c:if test="#{empty produitsBean.produitsFournisseurs}">
-			<div class="TexAlCenter Container100 Responsive100 ">
-						<div class="Container100 Responsive100">
-							<div class="ContainerIndent">
-								<div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
-									<div class="Container100"
-										style="margin: 0px 10px 10px -10px; padding: 0px 10px;">
-										<div class="SoftRedBack DispInlBlock Fleft"
-											style="margin: -10px 10px -20px -10px; padding: 20px 10px;">
-											<i class="fa fa-warning Red Fs100"></i>
-										</div>
-										<span class="Red FontRobotoLight BigTopic">Pas de produit</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-			</c:if>
-			
-		<c:if test="#{not empty produitsBean.produitsFournisseurs}">
-			
+	
+			<div class="Container70 Responsive100">
+			<div class="ContainerIndent">
 		<p:fieldset id="availableCarsField" legend="Produits disponibles">
 		
 			<p:dataGrid id="availableCars" var="car"
@@ -92,7 +73,8 @@
 				</p:dataTable>
 			</p:outputPanel>
 		</p:fieldset>
-	
+	</div>
+	</div>
 		<p:droppable for="selectedCars" tolerance="touch"
 			activeStyleClass="ui-state-highlight" datasource="availableCars"
 			onDrop="handleDrop">
@@ -145,8 +127,7 @@
 			style="margin-top : 5px;"
 			styleClass="GreenButton Wid100 Fs18 White RaisedButton"
 			update="@(.ui-datatable)" />
-</c:if>
-		
+
 	</h:form>
 
 </ui:composition>

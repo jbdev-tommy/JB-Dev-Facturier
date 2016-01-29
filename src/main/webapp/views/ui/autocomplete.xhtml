@@ -8,9 +8,9 @@
       <div class="EmptyBox10"></div>    
 	 <p:autoComplete value="#{adressesBean.adresse}" placeHolder="numéro, nom de rue code postale ville"
 								completeMethod="#{adressesListBean.adressesQuery}"
-								var="a" itemValue="#{a}" itemLabel="#{a.numero}, #{a.voie} #{a.codePostal} #{a.ville}" converter="adressesConverter" styleClass="Wid90">
+								var="a" itemValue="#{a}" itemLabel="#{a.numero} #{a.voie} #{a.codePostal} #{a.ville}" converter="adressesConverter" styleClass="Wid90">
 				<p:column>
-					#{a.numero}, #{a.voie} #{a.codePostal} #{a.ville} 
+					#{a.numero} #{a.voie} #{a.codePostal} #{a.ville} 
 				</p:column>
 
 	</p:autoComplete>
