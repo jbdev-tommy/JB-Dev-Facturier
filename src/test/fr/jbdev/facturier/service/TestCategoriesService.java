@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fr.jbdev.domaine.Categories;
+import fr.jbdev.domaine.Produits;
 import fr.jbdev.domaine.Utilisateurs;
 import fr.jbdev.facturier.excepetions.ObjectNullException;
 
@@ -27,7 +28,7 @@ public class TestCategoriesService {
     @Qualifier("categoriesService")
     private CategoriesService categoriesService;
 
-    @Test
+   /* @Test
     public void testAdd() {
 	Utilisateurs user;
 	try {
@@ -44,7 +45,7 @@ public class TestCategoriesService {
 	    e.printStackTrace();
 	}
 
-    }
+    }*/
 
     @Test
     public void testList() {
@@ -53,14 +54,18 @@ public class TestCategoriesService {
 	    user = userService.findUserByMail("bochard.jonathan@jbdev.fr");
 
 	    Set<Categories> cats = user.getEntreprises().getCategorieses();
-
+	    for(Categories cat : cats) {
+		for(Produits pdt : cat.getProduitses()) {
+		    System.out.println(" Produits : " + pdt.getNom());
+		}
+	    }
 	    assertTrue(!cats.isEmpty());
 
 	} catch (ObjectNullException e) {
 	    e.printStackTrace();
 	}
     }
-
+/*
     // @Test
     public void testDelete() {
 	Categories categorie = new Categories();
@@ -75,4 +80,5 @@ public class TestCategoriesService {
 	}
 
     }
+    */
 }

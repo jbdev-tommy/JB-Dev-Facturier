@@ -108,8 +108,10 @@ public class ProduitsBean implements GeneralBean<Produits> {
 		// Categorie
 		for (Categories cat : categorieBean.getCategorieListBean()
 			.getList()) {
-		    cat.getProduitses().add(produit);
+		    if(cat.equals(categorieBean.getCat()))
+			cat.getProduitses().add(produit);
 		}
+		
 		// Produits
 		if (produit.isService()) {
 		    produitsListBean.getListServices().add(produit);
@@ -117,6 +119,7 @@ public class ProduitsBean implements GeneralBean<Produits> {
 		} else {
 		    produitsListBean.getListProduits().add(produit);
 		}
+		produit = new Produits();
 	    }
 	}
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
-<!-- 2016-01-29T15:38:57 -->
+<!-- 2016-01-29T21:31:15 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Simple_Blue_Table_Based" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="d4a1d5eb-82dd-412f-a620-202e4bdf9dba">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -92,11 +92,14 @@
 		<field name="prixHt" class="java.lang.Double">
 			<fieldDescription><![CDATA[prixHt]]></fieldDescription>
 		</field>
+		<field name="coef" class="java.lang.Double">
+			<fieldDescription><![CDATA[coef]]></fieldDescription>
+		</field>
 		<variable name="sommeHt" class="java.lang.Double" calculation="Sum">
-			<variableExpression><![CDATA[$F{prixHt}*$P{quantite}]]></variableExpression>
+			<variableExpression><![CDATA[$F{prixHt}*$F{coef}*(1-($P{tva}.getTaux()/100))]]></variableExpression>
 		</variable>
 		<variable name="sommeTtc" class="java.lang.Double" calculation="Sum">
-			<variableExpression><![CDATA[($F{prixHt}*$P{quantite}) * (1+($P{tva}.getTaux()/100))]]></variableExpression>
+			<variableExpression><![CDATA[($F{prixHt}*$P{quantite})*$F{coef} ]]></variableExpression>
 		</variable>
 	</subDataset>
 	<parameter name="logo" class="java.awt.Image"/>
@@ -415,7 +418,7 @@
 								<textElement verticalAlignment="Middle">
 									<paragraph leftIndent="5"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{prixHt}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{prixHt}*$F{coef}*(1-($P{tva}.getTaux()/100))]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -447,7 +450,7 @@
 								<textElement verticalAlignment="Middle">
 									<paragraph leftIndent="5"/>
 								</textElement>
-								<textFieldExpression><![CDATA[new DecimalFormat("0.00").format(($F{prixHt}*$P{quantite}))]]></textFieldExpression>
+								<textFieldExpression><![CDATA[new DecimalFormat("0.00").format(($F{prixHt}*$F{coef}*(1-($P{tva}.getTaux()/100))*$P{quantite}))]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

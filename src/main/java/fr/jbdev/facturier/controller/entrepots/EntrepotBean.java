@@ -33,6 +33,7 @@ public class EntrepotBean implements GeneralBean<Entrepots> {
 
     private Entrepots entrepot;
     private boolean view;
+    private Produits produit;
     
     @PostConstruct
     public void init() {
@@ -80,6 +81,7 @@ public class EntrepotBean implements GeneralBean<Entrepots> {
     public void update() {
 	try {
 	    // Persistance
+	    entrepot.getProduitses().add(produit);
 	    entrepotListBean.getEntrepotService().update(entrepot);
 	    // vue
 		if (entrepotListBean.getList().contains(entrepot)) {
@@ -113,11 +115,9 @@ public class EntrepotBean implements GeneralBean<Entrepots> {
 
     public void onProduitDrop(DragDropEvent ddEvent) {
 	Contient cmd = (Contient) ddEvent.getData();
-	Produits pdt = cmd.getProduits();
-	float stock = pdt.getStock();
-	pdt.setStock(stock + cmd.getQuantite());
-	entrepot.getProduitses().add(pdt);
-
+	produit = cmd.getProduits();
+	float stock = produit.getStock();
+	produit.setStock(stock + cmd.getQuantite());
     }
 
     @Override
@@ -155,6 +155,16 @@ public class EntrepotBean implements GeneralBean<Entrepots> {
 
     public void setView(boolean view) {
         this.view = view;
+    }
+
+
+    public Produits getProduit() {
+	return produit;
+    }
+
+
+    public void setProduit(Produits produit) {
+	this.produit = produit;
     }
 
 }

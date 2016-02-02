@@ -65,7 +65,6 @@ public class SearchBean {
 
 	for (Object obj : bigList) {
 	    if (obj instanceof Fournisseurs) {
-		System.out.println("Class : " + obj.getClass().getCanonicalName());
 		bigMap.put(((Fournisseurs) obj).getEntreprisesByNumSiret()
 			.getNom(), obj);
 	    } else if (obj instanceof Clients) {

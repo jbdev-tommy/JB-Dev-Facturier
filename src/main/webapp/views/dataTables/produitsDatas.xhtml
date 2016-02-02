@@ -1,90 +1,86 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:sec="http://www.springframework.org/security/tags"
-                xmlns:c="http://java.sun.com/jsp/jstl/core">
-          
-    
-         
- <p:outputPanel  id="dataTableProduits" widgetVar="dataTableProduits">
-    <c:if test="#{action eq 'fournisseur'}">                            
-      <div class="Container100 Responsive100">
-        <div class="ContainerIndent"> 
-        	<p:dataTable  id="produitsFour" var="pdt" value="#{produitsBean.produitsFournisseurs}" selectionMode="single" selection="#{produitsBean.produit}"  reflow="true" rows="10" rowKey="#{pdt}" paginator="true" paginatorAlwaysVisible="false">
-              		<p:ajax event="rowSelect" listener="#{produitsBean.view}" update="@(.ui-dialog)"/>
-            		
-            	
-            		<p:column headerText="Nom ">
-                		<h:outputText value="#{pdt.nom}" />
-            		</p:column>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-            		<p:column headerText="Description ">
-                		<h:outputText value="#{pdt.description}" />
-           			</p:column>
-            
- 					<p:column headerText="Prix HT ">
-                		<h:outputText value="#{pdt.prixHt}" />
-           			</p:column>
 
-        		</p:dataTable>
-		</div>
-	</div>
-	</c:if>  	
-	
-	<c:if test="#{action eq 'user'}">     
-	<h2 class="BigTopic">Liste des produits</h2>                       
-      <div class="Container100 Responsive100">
-        <div class="ContainerIndent"> 
-        	<p:dataTable  id="produitsFour" var="pdt" value="#{produitsBean.produitsCategories}" selectionMode="single" selection="#{produitsBean.produit}"  reflow="true" rows="10" rowKey="#{pdt}" paginator="true" paginatorAlwaysVisible="false">
-              		<p:ajax event="rowSelect" listener="#{produitsBean.view}" update="@(.ui-dialog)"/>
-            		
-            	
-            		<p:column headerText="Nom ">
-                		<h:outputText value="#{pdt.nom}" />
-            		</p:column>
 
-            		<p:column headerText="Description ">
-                		<h:outputText value="#{pdt.description}" />
-           			</p:column>
-            
- 					<p:column headerText="Prix HT ">
-                		<h:outputText value="#{pdt.prixHt}" />
-           			</p:column>
+	<p:outputPanel id="dataTableProduits" widgetVar="dataTableProduits">
+		<c:if test="#{action eq 'fournisseur'}">
+			<div class="Container100 Responsive100">
+				<div class="ContainerIndent">
+					<p:dataTable id="produitsFour" var="pdt"
+						value="#{produitsBean.produitsFournisseurs}"
+						selectionMode="single" selection="#{produitsBean.produit}"
+						reflow="true" rows="10" rowKey="#{pdt}" paginator="true"
+						paginatorAlwaysVisible="false">
+						<p:ajax event="rowSelect" listener="#{produitsBean.view}"
+							update="@(.ui-dialog)" />
 
-        		</p:dataTable>
-		</div>
-	</div>
-	
-	<h2 class="BigTopic">Liste des produits ou des services</h2>
-	 <div class="Container100 Responsive100">
-        <div class="ContainerIndent"> 
-        	<p:dataTable  id="services" var="pdt" value="#{produitsListBean.listServices}" selectionMode="single" selection="#{produitsBean.produit}"  reflow="true" rows="10" rowKey="#{pdt}" paginator="true" paginatorAlwaysVisible="false">
-              		<p:ajax event="rowSelect" listener="#{produitsBean.view}" update="@(.ui-dialog)"/>
-            		
-            	
-            		<p:column headerText="Nom ">
-                		<h:outputText value="#{pdt.nom}" />
-            		</p:column>
 
-            		<p:column headerText="Description ">
-                		<h:outputText value="#{pdt.description}" />
-           			</p:column>
-            
- 					<p:column headerText="Prix HT ">
-                		<h:outputText value="#{pdt.prixHt}" />
-           			</p:column>
+						<p:column headerText="Nom ">
+							<h:outputText value="#{pdt.nom}" />
+						</p:column>
 
-        		</p:dataTable>
-		</div>
-	</div>
-	</c:if>  	
-	
+						<p:column headerText="Description ">
+							<h:outputText value="#{pdt.description}" />
+						</p:column>
+
+						<p:column headerText="Prix HT ">
+							<h:outputText value="#{pdt.prixHt}" />
+						</p:column>
+
+					</p:dataTable>
+				</div>
+			</div>
+		</c:if>
+
+		<c:if test="#{action eq 'user'}">
+			<h2 class="BigTopic">Liste des produits ou des service</h2>
+			<div class="Container100 Responsive100">
+				<div class="ContainerIndent">
+					<p:dataTable id="produitsFour" var="pdt"
+						value="#{produitsBean.produitsCategories}" selectionMode="single"
+						selection="#{produitsBean.produit}" reflow="true" rows="10"
+						rowKey="#{pdt}" paginator="true" paginatorAlwaysVisible="false">
+						<p:ajax event="rowSelect" listener="#{produitsBean.view}"
+							update="@form" />
+
+
+						<p:column headerText="Nom ">
+							<h:outputText value="#{pdt.nom}" />
+						</p:column>
+
+						<p:column headerText="Description ">
+							<h:outputText value="#{pdt.description}" />
+						</p:column>
+
+						<p:column headerText="Prix HT ">
+							<h:outputText value="#{pdt.prixHt}" >
+							<f:convertNumber pattern="#0.00" local="pt_FR"/>
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Prix de vente TTC">
+							<h:outputText value="#{pdt.prixHt*pdt.coef}" >
+							<f:convertNumber pattern="#0.00" local="pt_FR"/>
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Service">
+							<p:selectBooleanCheckbox styleClass="TexAlCenter"
+								value="#{pdt.service}" disabled="true" />
+						</p:column>
+					</p:dataTable>
+				</div>
+			</div>
+		</c:if>
+
 
 	</p:outputPanel>
-	
-  	<ui:include src="/views/dialogs/produitsDialog.xhtml" />
+
+	<ui:include src="/views/dialogs/produitsDialog.xhtml" />
 
 
 </ui:composition>

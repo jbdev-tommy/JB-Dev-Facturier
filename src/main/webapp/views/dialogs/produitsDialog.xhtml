@@ -29,11 +29,13 @@
                         		<p:inputTextarea styleClass="Wid90" value="#{produitsBean.produit.description}" /><br />	
 							</p:row>	
 							
+								<p:selectBooleanCheckbox value="#{produitsBean.produit.service}"
+							itemLabel="Service" styleClass="Fleft" />
                         </p:column>
                      			
         	</p:outputPanel>
-        	       
-                    	<p:commandButton process="@form" value="Mettre à jour" action="#{produitsBean.update}" styleClass="GreenButton Wid100 Fs18 White RaisedButton" update="@(.ui-datatable)" />
+        	    	   <div class="EmptyBox10"></div>  
+               	     	<p:commandButton process="@form" value="Mettre à jour" action="#{produitsBean.update}" styleClass="GreenButton Wid100 Fs18 White RaisedButton" update="@(.ui-datatable)" />
         				<div class="EmptyBox10"></div>  
         				<c:if test="#{action eq 'user'}">
                     		<p:commandButton process="@form" value="Suprimmer" action="#{produitsBean.delete}" styleClass="RedButton Wid100 Fs18 White RaisedButton" update="@(.ui-datatable)" />

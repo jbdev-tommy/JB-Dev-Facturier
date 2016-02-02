@@ -70,6 +70,11 @@
 						<h:outputText
 							value="#{car.produits.prixHt * car.quantite* (1+((car.tva.taux)/100))}" />
 					</p:column>
+					<p:column>
+						<p:commandButton  icon="fa fa-close Fs16 White" styleClass="Fright PinkButton TexAlCenter" >
+							<p:collector value="car" removeFrom="#{commandesBean.contients}" />
+						</p:commandButton>	
+					</p:column>
 				</p:dataTable>
 			</p:outputPanel>
 		</p:fieldset>

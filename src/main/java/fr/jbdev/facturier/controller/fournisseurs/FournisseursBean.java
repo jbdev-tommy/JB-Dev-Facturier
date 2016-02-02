@@ -65,6 +65,7 @@ public class FournisseursBean implements GeneralBean<Fournisseurs> {
 	try {
 	    if (this.fournisseur != null) {
 		entreprise.setAdresses(adressesBean.getAdresse());
+		entreprise.setModelPdf("0");
 		fournisseur.setEntreprisesByNumSiretEntreprises(user
 			.getEntreprises());
 		fournisseur.setEntreprisesByNumSiret(entreprise);

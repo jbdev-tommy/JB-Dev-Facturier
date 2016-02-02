@@ -11,7 +11,8 @@
 			droppedCar.fadeOut('fast');
 		}
 	</script>
-
+	
+	<p:growl id="message" showDetail="false" />
 	<div class="Container50 Responsive50">
 		<div class="ContainerIndent">
 			<h3>1 - Liste des commandes</h3>
@@ -31,10 +32,13 @@
 			<p:panel id="pnl" header="#{car.produits.nom}"
 				style="text-align:center">
 				<h:panelGrid columns="1" style="width:100%">
-					<h:outputText value="#{car.produits.description}"></h:outputText>
+					<h:outputText value="Description : #{car.produits.description}"></h:outputText>
+					<div class="EmptyBox10"></div>
+					<h:outputText value="Quantité : #{car.quantite}">
+						<f:convertNumber pattern="#0.00" local="pt_FR" />
+					</h:outputText>
 				</h:panelGrid>
 			</p:panel>
-
 			<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar"
 				stack=".ui-panel" />
 		</p:dataGrid>
@@ -55,7 +59,10 @@
 				<p:column headerText="Prix HT">
 					<h:outputText value="#{car.prixHt}" />
 				</p:column>
-				<p:column headerText="=Quantité">
+				<p:column headerText="Prix de vente">
+					<h:outputText value="#{car.prixHt * car.coef}" />
+				</p:column>
+				<p:column headerText="Quantité">
 					<h:outputText value="#{car.stock}" />
 				</p:column>
 			</p:dataTable>
@@ -66,12 +73,12 @@
 		activeStyleClass="ui-state-highlight" datasource="availableCars"
 		onDrop="handleDrop">
 		<p:ajax listener="#{entrepotsBean.onProduitDrop}"
-			update="dropArea availableCars" />
+			update="dropArea availableCars @(.ui-datatable) @form" />
 	</p:droppable>
 
 	<p:commandButton process="@form" value="Enregistrer"
 		action="#{entrepotsBean.update}" icon="fa fa-key"
 		style="margin-top : 5px;"
 		styleClass="GreenButton Wid100 Fs18 White RaisedButton"
-		update="@(.ui-datatable)" />
+		update="@(.ui-datatable) @form" />
 </ui:composition>

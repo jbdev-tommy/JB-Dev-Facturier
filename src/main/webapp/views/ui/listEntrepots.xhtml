@@ -5,7 +5,7 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:p="http://primefaces.org/ui">
     
-     <p:selectOneListbox id="listEntrepots" cahe="true" value="#{entrepotsBean.entrepot}" converter="entrepotsConverter" var="entrepot" filter="true" filterMatchMode="contains" row="6" style="width:90%;" >
+     <p:selectOneListbox id="listEntrepots" cahe="true" value="#{entrepotsBean.entrepot}" converter="entrepotsConverter" var="entrepot" filter="true" filterMatchMode="contains" row="6" style="width:90%;" required="true" requiredMessage="Sélectionné un entrepot">
             <f:selectItems value="#{entrepotsListBean.list}" var="ent" itemLabel="#{ent.numero}" itemValue="#{ent}" />
             <p:column>
                 <h:outputText value = "#{entrepot.numero}"/>

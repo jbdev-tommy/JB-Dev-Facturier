@@ -83,7 +83,15 @@
 						<br />
 					</p:row>
 					<p:row>
-						<p:selectBooleanCheckbox value="#produitsBean.produit.service}"
+						<h:outputText for="coef" value="Coeficient sur prix de vente" />
+						<p:inputText id="coef" styleClass="Wid90"
+							value="#{produitsBean.produit.coef}">
+								</p:inputText>
+						<br />
+					</p:row>
+					<div class="EmptyBox10"></div>
+					<p:row>
+						<p:selectBooleanCheckbox value="#{produitsBean.produit.service}"
 							itemLabel="Service" styleClass="Fleft" />
 
 					</p:row>
@@ -101,7 +109,7 @@
 				<p:commandButton process="@form" value="Enregistrer"
 					action="#{produitsBean.create}"
 					styleClass="GreenButton Wid100 Fs18 White RaisedButton"
-					update="#{update}" />
+					update="@(.ui-datatable) @(:input) message	@widgetVar(graphs)" />
 				<div class="EmptyBox10"></div>
 
 			</p:outputPanel>

@@ -17,159 +17,185 @@
 
 	<h:form id="devisWizard" enctype="application/pdf">.
 
-		<p:growl id="message" showDetail="true" />
+		<p:growl id="message" showDetail="false" />
 		<c:if test="#{empty clientsListBean.list}">
-					<div class="TexAlCenter Container100 Responsive100 ">
-						<div class="Container100 Responsive100">
-							<div class="ContainerIndent">
-								<div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
-									<div class="Container100"
-										style="margin: 0px 10px 10px -10px; padding: 0px 10px;">
-										<div class="SoftRedBack DispInlBlock Fleft"
-											style="margin: -10px 10px -20px -10px; padding: 20px 10px;">
-											<i class="fa fa-warning Red Fs100"></i>
-										</div>
-										<span class="Red FontRobotoLight BigTopic">Pas de client trouvé</span>
-									</div>
+			<div class="TexAlCenter Container100 Responsive100 ">
+				<div class="Container100 Responsive100">
+					<div class="ContainerIndent">
+						<div class="Card ShadowEffect HeiAutoOnMobile OvHidden">
+							<div class="Container100"
+								style="margin: 0px 10px 10px -10px; padding: 0px 10px;">
+								<div class="SoftRedBack DispInlBlock Fleft"
+									style="margin: -10px 10px -20px -10px; padding: 20px 10px;">
+									<i class="fa fa-warning Red Fs100"></i>
 								</div>
+								<span class="Red FontRobotoLight BigTopic">Pas de client
+									trouvé</span>
 							</div>
 						</div>
 					</div>
-				
-				</c:if>
-				<c:if test="#{not empty clientsListBean.list}">
-		
-		<h3> Numéro du devis</h3>
-		<div class="EmptyBox10"></div>
-		<p:inputText styleClass="Wid50" placeholder="Numéro du devis"
-			value="#{devisBean.numero}" />
-		<div class="EmptyBox20"></div>
-		<div class="Container50 Responsive100">
-			<div class="ContainerIndent">
-				<h3>Selection du Client </h3>
-				<div class="EmptyBox10"></div>
-				<ui:include src="/views/ui/listClients.xhtml"></ui:include>
+				</div>
 			</div>
-		</div>
 
-		<div class="EmptyBox10"></div>
-		<p:fieldset id="availableCarsField" legend="Produits disponibles"
-			styleClass="Container90 Responsive100">
-			<p:dataGrid id="availableCars" var="car"
-				value="#{categorieListBean.list}" columns="3">
-				<p:panel id="pnl" header="#{car.nom}" style="text-align:center">
-					<h:panelGrid columns="1" style="width:100%">
-						<h:outputText value="#{car.description}"></h:outputText>
+		</c:if>
+		<c:if test="#{not empty clientsListBean.list}">
 
-						<p:dataTable id="pdtDataCat" var="pdt" value="#{car.produitses}"
-							rendered="#{not empty car.produitses}">
-							<p:column headerText="Nom">
-								<h:outputText value="#{pdt.nom}" />
-							</p:column>
+			<h3>Numéro du devis</h3>
+			<div class="EmptyBox10"></div>
+			<p:inputText styleClass="Wid50" placeholder="Numéro du devis"
+				value="#{devisBean.numero}" required="true" requiredMessage="Numéro de devis nécéssaire"/>
+			<div class="EmptyBox20"></div>
+			<div class="Container50 Responsive100">
+				<div class="ContainerIndent">
+					<h3>Selection du Client</h3>
+					<div class="EmptyBox10"></div>
+					<ui:include src="/views/ui/listClients.xhtml"></ui:include>
+				</div>
+			</div>
 
-							<p:column headerText="Prix HT">
-								<h:outputText value="#{pdt.prixHt}" />
-							</p:column>
+			<div class="EmptyBox10"></div>
+			<p:fieldset id="availableCarsField" legend="Produits disponibles"
+				styleClass="Container90 Responsive100">
+				<p:dataGrid id="availableCars" var="car"
+					value="#{categorieListBean.list}" columns="3">
+					<p:panel id="pnl" header="#{car.nom}" style="text-align:center">
+						<h:panelGrid columns="1" style="width:100%">
+							<h:outputText value="#{car.description}"></h:outputText>
 
-						</p:dataTable>
-					</h:panelGrid>
-				</p:panel>
+							<p:dataTable id="pdtDataCat" var="pdt" value="#{car.produitses}"
+								rendered="#{not empty car.produitses}">
+								<p:column headerText="Nom">
+									<h:outputText value="#{pdt.nom}" />
+								</p:column>
 
-				<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar"
-					stack=".ui-panel" />
-			</p:dataGrid>
-		</p:fieldset>
+								<p:column headerText="Prix de vente">
+									<h:outputText value="#{pdt.prixHt*pdt.coef}">
+										<f:convertNumber pattern="#0.00" local="pt_FR" />
+									</h:outputText>
+								</p:column>
 
-		<p:fieldset id="selectedCars" legend="Produits selectionnés"
-			styleClass="Container90 Responsive100">
-			<p:outputPanel id="dropArea">
-				<h:outputText value="!!!Glissé ici!!!"
-					rendered="#{empty devisBean.listProduits}" style="font-size:24px;" />
-				<p:dataTable id="selectedCarsTable" var="car"
-					value="#{devisBean.listProduits}"
-					rendered="#{not empty devisBean.listProduits}">
-					<p:column headerText="Categorie">
-						<h:outputText value="#{car.categories.nom}" />
+							</p:dataTable>
+						</h:panelGrid>
+					</p:panel>
+
+					<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar"
+						stack=".ui-panel" />
+				</p:dataGrid>
+			</p:fieldset>
+
+			<p:fieldset id="selectedCars" legend="Produits selectionnés"
+				styleClass="Container90 Responsive100">
+				<p:outputPanel id="dropArea">
+					<h:outputText value="!!!Glissé ici!!!"
+						rendered="#{empty devisBean.listProduits}" style="font-size:24px;" />
+					<p:dataTable id="selectedCarsTable" var="car"
+						value="#{devisBean.listProduits}"
+						rendered="#{not empty devisBean.listProduits}">
+						<p:column headerText="Categorie" width="20%">
+							<h:outputText value="#{car.categories.nom}" />
+						</p:column>
+						<p:column headerText="Produits" >
+							<p:dataTable var="pdt" value="#{car.categories.produitses}">
+								<p:column headerText="Nom">
+									<h:outputText value="#{pdt.nom}" />
+								</p:column>
+								<p:column headerText="Prix HT">
+									<h:outputText
+										value="#{pdt.prixHt*pdt.coef*(1-((car.tva.taux)/100))}">
+										<f:convertNumber pattern="#0.00" local="pt_FR" />
+									</h:outputText>
+								</p:column>
+								<p:column headerText="Prix de vente">
+									<h:outputText value="#{pdt.prixHt*pdt.coef}">
+										<f:convertNumber pattern="#0.00" local="pt_FR" />
+									</h:outputText>
+								</p:column>
+								<p:column headerText="Quantité">
+									<h:outputText
+										value="#{car.quantite}">
+										<f:convertNumber pattern="#0.00" local="pt_FR" />
+									</h:outputText>
+								</p:column>
+								
+								<p:column headerText="Total HT">
+									<h:outputText
+										value="#{pdt.prixHt * pdt.coef * car.quantite * (1-((car.tva.taux)/100))}">
+										<f:convertNumber pattern="#0.00" local="pt_FR" />
+									</h:outputText>
+								</p:column>
+
+								<p:column headerText="TVA  #{car.tva.taux} %">
+									<h:outputText
+										value="#{pdt.prixHt * pdt.coef * car.quantite * ((car.tva.taux)/100)}">
+										<f:convertNumber pattern="#0.00" local="pt_FR" />
+									</h:outputText>
+								</p:column>
+
+									<p:column headerText="Total TTC">
+									<h:outputText value="#{pdt.prixHt * pdt.coef * car.quantite}">
+										<f:convertNumber pattern="#0.00" local="pt_FR" />
+									</h:outputText>
+								</p:column>
+								
+							</p:dataTable>
+						</p:column>
+					</p:dataTable>
+				</p:outputPanel>
+			</p:fieldset>
+			<p:fieldset id="finDevis" legend="Fin de page"
+				styleClass="Container90 Responsive100">
+				<h:panelGrid columns="2" style="width:100%">
+					<p:column>
+						<p:outputLabel value="Mentions" for="editor" styleClass="Fs24" />
+						<div class="EmptyBox10"></div>
+						<p:editor id="editor" widgetVar="editorWidget"
+							value="#{devisBean.mentions}" />
+						<div class="EmptyBox20"></div>
+						<p:outputLabel value="Remise global" for="remiseIn"
+							styleClass=" Fs24" />
+						<div class="EmptyBox10"></div>
+						<p:inputText id="remiseIn" placeholder="Remise global"
+							value="#{devisBean.remise}" />
 					</p:column>
-					<p:column headerText="Produits">
-						<p:dataTable var="pdt" value="#{car.categories.produitses}">
-							<p:column headerText="Nom">
-								<h:outputText value="#{pdt.nom}" />
-							</p:column>
-							<p:column headerText="Prix HT">
-								<h:outputText value="#{pdt.prixHt}" />
-							</p:column>
+					<p:column>
+						<p:outputLabel value="Date de fin validité du devis"
+							for="remiseIn" styleClass=" Fs24" />
+						<div class="EmptyBox10"></div>
+						<p:calendar id="calendare" pattern="dd/MM/yyyy" mask="true"
+							placeholder="Date de naissance"
+							value="#{devisBean.devis.dateFinDevis}" effect="fold"
+							mode="inline" />
+						<br />
 
-							<p:column headerText="Total HT">
-								<h:outputText value="#{pdt.prixHt * car.quantite}" />
-							</p:column>
-							<p:column headerText="TVA  #{car.tva.taux} %">
-								<h:outputText
-									value="#{pdt.prixHt * car.quantite * (1-((car.tva.taux)/100))}" />
-							</p:column>
-							<p:column headerText="Total TTC">
-								<h:outputText
-									value="#{pdt.prixHt * car.quantite* (1+((car.tva.taux)/100))}" />
-							</p:column>
-						</p:dataTable>
 					</p:column>
-				</p:dataTable>
-			</p:outputPanel>
-		</p:fieldset>
-		<p:fieldset id="finDevis" legend="Fin de page"
-			styleClass="Container90 Responsive100">
-			<h:panelGrid columns="2" style="width:100%">
-				<p:column>
-					<p:outputLabel value="Mentions" for="editor" styleClass="Fs24" />
-					<div class="EmptyBox10"></div>
-					<p:editor id="editor" widgetVar="editorWidget"
-						value="#{devisBean.mentions}" />
-					<div class="EmptyBox20"></div>
-					<p:outputLabel value="Remise global" for="remiseIn"
-						styleClass=" Fs24" />
-					<div class="EmptyBox10"></div>
-					<p:inputText id="remiseIn" placeholder="Remise global"
-						value="#{devisBean.remise}" />
-				</p:column>
-				<p:column>
-					<p:outputLabel value="Date de fin validité du devis" for="remiseIn"
-						styleClass=" Fs24" />
-					<div class="EmptyBox10"></div>
-					<p:calendar id="calendare" pattern="dd/MM/yyyy" mask="true"
-						placeholder="Date de naissance"
-						value="#{devisBean.devis.dateFinDevis}" effect="fold"
-						mode="inline" />
-					<br />
+				</h:panelGrid>
+			</p:fieldset>
+			<p:droppable for="selectedCars" tolerance="touch"
+				activeStyleClass="ui-state-highlight" datasource="availableCars"
+				onDrop="handleDrop">
+				<p:ajax listener="#{devisBean.onProduitDrop}"
+					update="@(.ui-datatable)" />
+			</p:droppable>
 
-				</p:column>
-			</h:panelGrid>
-		</p:fieldset>
-		<p:droppable for="selectedCars" tolerance="touch"
-			activeStyleClass="ui-state-highlight" datasource="availableCars"
-			onDrop="handleDrop">
-			<p:ajax listener="#{devisBean.onProduitDrop}"
-				update="@(.ui-datatable)" />
-		</p:droppable>
+			<p:dialog id="dialogCommande" header="Quantité"
+				widgetVar="quantiteDialog" showEffect="slide" hideEffect="explode"
+				resizable="false">
+				<p:inputText styleClass="Wid90" placeholder="Quantité"
+					value="#{devisBean.quantite}" required="true"
+					requiredMessage="Une quantité est nécassaire" />
+				<p:commandButton process="@form" value="Valider"
+					action="#{devisBean.addProduits}"
+					styleClass="GreenButton Wid100 Fs18 White RaisedButton"
+					update="@form" />
+			</p:dialog>
 
-		<p:dialog id="dialogCommande" header="Quantité"
-			widgetVar="quantiteDialog" showEffect="slide" hideEffect="explode"
-			resizable="false">
-			<p:inputText styleClass="Wid90" placeholder="Quantité"
-				value="#{devisBean.quantite}" required="true"
-				requiredMessage="Une quantité est nécassaire" />
-			<p:commandButton process="@form" value="Valider"
-				action="#{devisBean.addProduits}"
+
+			<div class="EmptyBox20"></div>
+			<p:commandButton process="@form" value="Enregistrer"
+				action="#{devisBean.create}" icon="fa fa-key"
+				style="margin-top : 5px;"
 				styleClass="GreenButton Wid100 Fs18 White RaisedButton"
-				update="@form" />
-		</p:dialog>
-
-
-		<div class="EmptyBox20"></div>
-		<p:commandButton process="@form" value="Enregistrer"
-			action="#{devisBean.create}" icon="fa fa-key"
-			style="margin-top : 5px;"
-			styleClass="GreenButton Wid100 Fs18 White RaisedButton"
-			update="@(.ui-datatable)" />
-</c:if>
+				update="@(.ui-datatable)" />
+		</c:if>
 	</h:form>
 </ui:composition>

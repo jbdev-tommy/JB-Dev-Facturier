@@ -36,6 +36,7 @@ public class Produits implements java.io.Serializable {
     private boolean service;
     private String description;
     private double prixHt;
+    private double coef;
     private Float stock;
     private Set<Contient> contients = new HashSet<Contient>(0);
 
@@ -142,6 +143,15 @@ public class Produits implements java.io.Serializable {
 
     public void setPrixHt(double prixHt) {
 	this.prixHt = prixHt;
+    }
+    
+    @Column(name = "Coef", nullable = false, precision = 22, scale = 0)
+    public double getCoef() {
+	return coef;
+    }
+
+    public void setCoef(double coef) {
+	this.coef = coef;
     }
 
     @Column(name = "Stock", precision = 12, scale = 0)

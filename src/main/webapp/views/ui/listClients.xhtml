@@ -5,7 +5,7 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:p="http://primefaces.org/ui">
     
-     <p:selectOneListbox label="Client" id="listClients" editable="true" cahe="true" value="#{clientsBean.client}" converter="clientsConverter" var="clt" filter="true" filterMatchMode="contains" style="width:100%" scrollHeight="150">
+     <p:selectOneListbox label="Client" id="listClients" editable="true" cahe="true" value="#{clientsBean.client}" converter="clientsConverter" var="clt" filter="true" filterMatchMode="contains" style="width:100%" scrollHeight="150" required="true" requiredMessage="Sélectionner un client">
             <f:selectItems value="#{clientsListBean.list}" var="client" itemLabel="#{client.personnes.nom}" itemValue="#{client}"/>
 
             <p:column>
