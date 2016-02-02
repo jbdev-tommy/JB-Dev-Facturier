@@ -1,7 +1,7 @@
 # JB-Dev-Facturier
 Facturier ++ pour PME Auto-Entrepeneur
 
-Permet la gestion :
+Permet la gestion : <br />
     1. de produits
     2. d'entrepôts,
     3. de factures,
