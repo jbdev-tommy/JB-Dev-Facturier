@@ -2,10 +2,10 @@
 Facturier ++ pour PME Auto-Entrepeneur
 
 Permet la gestion :
-    - de produits
-    - d'entrepôts,
-    - de factures,
-    - de devis.
+    1. de produits
+    2. d'entrepôts,
+    3. de factures,
+    4. de devis.
 
 # Application
  Cette application est conçut pour fonctionné 
