@@ -1,11 +1,11 @@
 # JB-Dev-Facturier
-Facturier pour PME Auto-Entrepeneur
+Facturier ++ pour PME Auto-Entrepeneur
 
 Permet la gestion :
-  - de produits
-  - d'entrepot
-  - de facture
-  - de devis
+    de produits
+    d'entrepôts,
+    de factures,
+    de devis.
 
 # Application
  Cette application est conçut pour fonctionné 
